@@ -1,0 +1,9 @@
+# Ignorar archivos binarios y multimedia
+*.zip
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.log
