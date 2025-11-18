@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Ficha del Empleado</title>
   <style>
-    button{
+    .button-trab{
             padding: 10px 20px;
             border: none;
             background-color: #007bff;
@@ -279,6 +279,19 @@ $fecha_final = "$anio_actual-12-31";
 ?>
 <div class="principal">
   <div class="grid2">
+    <div style="grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <h1 class="text-2xl font-bold text-blue-600" style=" padding-left: 12rem;text-align: center; flex: 1;">Trabajadores</h1>
+      <form method="GET" action="">
+        <input type="hidden" name="pestaña" value="alta_trabajador">
+        <button type="submit" style="padding: 10px 20px;
+          border: none;
+          color: white;
+          background-color: #007bff;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 14px;">+ Agregar trabajador</button>
+      </form>
+    </div>
     <!-- Sidebar -->
     <div class="sidebar">
        <?php
@@ -338,12 +351,12 @@ $fecha_final = "$anio_actual-12-31";
     <!-- Contenido Principal -->
     <div class="main-content">
       <div class="tabs">
-        <button class="tablink active" onclick="openTab(event, 'personal')">Personal</button>
-        <button class="tablink" onclick="openTab(event, 'laboral')">Laboral</button>
-        <button class="tablink" onclick="openTab(event, 'IMSS')">IMSS</button>
-        <button class="tablink" onclick="openTab(event, 'Nomina')">Nómina</button>
-        <button class="tablink" onclick="openTab(event, 'Desempeño')">Desempeño</button>
-        <button class="tablink" onclick="openTab(event, 'Documentos')">Documentos</button>
+        <button class="tablink active button-trab" onclick="openTab(event, 'personal')">Personal</button>
+        <button class="tablink button-trab" onclick="openTab(event, 'laboral')">Laboral</button>
+        <button class="tablink button-trab" onclick="openTab(event, 'IMSS')">IMSS</button>
+        <button class="tablink button-trab" onclick="openTab(event, 'Nomina')">Nómina</button>
+        <button class="tablink button-trab" onclick="openTab(event, 'Desempeño')">Desempeño</button>
+        <button class="tablink button-trab" onclick="openTab(event, 'Documentos')">Documentos</button>
       </div>
 
         <div id="personal" class="tab-content active">
@@ -355,7 +368,7 @@ $fecha_final = "$anio_actual-12-31";
             <div class="field"><label>CP:</label> <?php echo htmlspecialchars($empleado['codigo_postal'] ?? 'No encontrado'); ?></div>
             <div class="field"><label>Fecha de nacimiento:</label> <?php echo htmlspecialchars($empleado['fecha_nacimiento'] ?? 'No encontrado'); ?></div>
           </div>
-          <button onclick="abrirModal('modalPersonal')">Editar</button>
+          <button class="button-trab" onclick="abrirModal('modalPersonal')">Editar</button>
       </div>
 
       <div id="laboral" class="tab-content">
@@ -366,7 +379,7 @@ $fecha_final = "$anio_actual-12-31";
           <div class="field"><label>Supervisor:</label> <?php echo htmlspecialchars($empleado['supervisor'] ?? 'No encontrado'); ?></div>
           <div class="field"><label>Turno:</label> <?php echo htmlspecialchars($empleado['turno'] ?? 'No encontrado'); ?></div>
         </div>
-        <button onclick="abrirModal('modalLaboral')">Editar</button>
+        <button class="button-trab" onclick="abrirModal('modalLaboral')">Editar</button>
       </div>
 
       <div id="IMSS" class="tab-content">
@@ -377,7 +390,7 @@ $fecha_final = "$anio_actual-12-31";
             <div class="field"><label>Antigüedad:</label> <?php echo htmlspecialchars($antiguedad_años ?? 'No encontrado'); ?> años</div>
             <div class="field"><label>Estado:</label> <?php echo htmlspecialchars($empleado['clave_entidad_fed'] ?? 'No encontrado'); ?></div>
         </div>
-        <button onclick="abrirModal('modalIMSS')">Editar</button>
+        <button class="button-trab" onclick="abrirModal('modalIMSS')">Editar</button>
       </div>
 
       <div id="Nomina" class="tab-content">
@@ -388,7 +401,7 @@ $fecha_final = "$anio_actual-12-31";
             <div class="field"><label>CLABE:</label> <?php echo htmlspecialchars($empleado['clave_bancaria'] ?? 'No encontrado'); ?> </div>
             <div class="field"><label>Banco:</label> <?php echo htmlspecialchars($empleado['banco'] ?? 'No encontrado'); ?></div>
         </div>
-        <button onclick="abrirModal('modalNomina')">Editar</button>
+        <button class="button-trab" onclick="abrirModal('modalNomina')">Editar</button>
       </div>
 
       <div id="Desempeño" class="tab-content">
@@ -444,7 +457,7 @@ $fecha_final = "$anio_actual-12-31";
 <!-- Modal para seleccionar empleado -->
 <div id="modalEmpleados" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000;">
   <div style="background:white; padding:20px; border-radius:10px; width:80%; max-width:600px; position:relative;">
-    <button onclick="cerrarModalBuscador()" style="position:absolute; top:10px; right:10px;">✖</button>
+    <button class="button-trab" onclick="cerrarModalBuscador()" style="position:absolute; top:10px; right:10px;">✖</button>
     <h3>Seleccionar Empleado</h3>
     <input type="text" id="filtroEmpleado" placeholder="Buscar por nombre o número" style="width:100%; padding:8px; margin-bottom:10px;">
     <div id="listaEmpleados" style="max-height:300px; overflow:auto; border:1px solid #ccc; padding:10px;">
@@ -551,7 +564,7 @@ window.onclick = function(event) {
       <label>Fecha de nacimiento: <input type="date" name="fecha_nacimiento" value="<?php echo $empleado['fecha_nacimiento']; ?>"></label><br>
       <input type="hidden" name="id" value="<?php echo $empleado['id']; ?>">
       <input type="hidden" name="pestaña" value="trabajadores_gerencia">
-      <button type="submit" name="guardar_personal">Guardar</button>
+      <button  class="button-trab" type="submit" name="guardar_personal">Guardar</button>
     </form>
   </div>
 </div>
@@ -569,7 +582,7 @@ window.onclick = function(event) {
       <label>Turno: <?php echo $selectDatosExistentes->obtenerOpcionesExistentes('listas', 'turno', 'turno', '', $empleado['turno']); ?><br>
       <input type="hidden" name="id" value="<?php echo $empleado['id']; ?>">
       <input type="hidden" name="pestaña" value="trabajadores_gerencia">
-      <button type="submit" name="guardar_laboral">Guardar</button>
+      <button class="button-trab" type="submit" name="guardar_laboral">Guardar</button>
     </form>
   </div>
 </div>
@@ -583,7 +596,7 @@ window.onclick = function(event) {
       <label>Fecha de ingreso: <input type="date" name="fecha_ingreso" value="<?php echo $empleado['fecha_ingreso']; ?>"></label><br>
       <input type="hidden" name="id" value="<?php echo $empleado['id']; ?>">
       <input type="hidden" name="pestaña" value="trabajadores_gerencia">
-      <button  name="guardar_imss" type="submit">Guardar</button>
+      <button class="button-trab" name="guardar_imss" type="submit">Guardar</button>
     </form>
   </div>
 </div>
@@ -601,7 +614,7 @@ window.onclick = function(event) {
       <label>Banco: <input type="text" name="banco" value="<?php echo $empleado['banco']; ?>"></label><br>
       <input type="hidden" name="id" value="<?php echo $empleado['id']; ?>">
       <input type="hidden" name="pestaña" value="trabajadores_gerencia">
-      <button name="guardar_nomina" type="submit" >Guardar</button>
+      <button class="button-trab" name="guardar_nomina" type="submit" >Guardar</button>
     </form>
   </div>
 </div>

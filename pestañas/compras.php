@@ -75,7 +75,8 @@
     </style>
         <div class="principal">
             <section>
-                <h1>Compras pendientes</h1>
+                <h1 class="text-2xl font-bold text-blue-600 text-center">Compras pendientes</h1>
+                <br>
                 <div class="buscador">
 
                     <form class="reporte_formulario" method="GET" action="">
@@ -161,7 +162,7 @@
                             while ($fila = $resultado->fetch_assoc()) {
                                 echo "<tr>";
                                 echo "<td class='centrado vacio'><input type='checkbox' name='seleccionado[]' value='" . $fila["id"] . "'></td>";
-                                echo "<td><a href='../header_main_aside/$header_loc.php?pestaña=editar_compras&id=" . $fila['id'] . "&header_loc=$header_loc'>" . $fila['id'] . "</a></td>";
+                                echo "<td><a class='liga' href='../header_main_aside/$header_loc.php?pestaña=editar_compras&id=" . $fila['id'] . "&header_loc=$header_loc'>" . $fila['id'] . "</a></td>";
                                 echo "<td>" . $fila['ot'] . "</td>";
                                 echo "<td>" . $fila['cantidad'] . " " . $fila['unidad'] . "</td>";
                                 echo "<td class='descripcion'>" . $fila['descripcion'] . "</td>";

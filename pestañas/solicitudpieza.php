@@ -15,7 +15,7 @@
 <body id="solicitudpieza">
 <div class="principal">
     <div>
-    <h2 class="titulo">Solicitud de pieza</h2>
+    <h2 class="text-2xl font-bold text-blue-600 text-center">Alta de actividad</h2>
     <?php
         // Verifica si el parámetro 'confirmacion' está presente en la URL
         if (isset($_GET['confirmacion'])) {

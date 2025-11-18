@@ -12,10 +12,30 @@
         margin-top: 8px;
     }
 
+    .custom-file {
+        height: 90px;
+    }
+    .custom-file-label {
+        height: 90px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 2px dashed #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #666;
+        padding: 10px;
+        text-align: center;
+    }
+
 </style>
 
-<div class="contenedor__servicios">
-    <h2 class="titulo">Alta de trabajador</h2>
+<div class="principal">
+    <div>
+    <h2 class="text-2xl font-bold text-blue-600 text-center">Alta de trabajador</h2>
+    <br>
     <?php 
     if(isset($_GET['confirmacion'])){
         echo "<p class='confirmacion'>".$_GET['confirmacion']."</p>";
@@ -87,7 +107,7 @@
 </form>
 
 </div>
-
+    </div>
 </main>
 </body>
 </html>

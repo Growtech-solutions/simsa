@@ -43,7 +43,7 @@
 </head>
 <body>
 <div class="principal">
-    <h2>Solicitud de compras</h2>
+    <h2 class="text-2xl font-bold text-blue-600 text-center">Solicitud de compras</h2>
     <div>
     <?php
         // Verifica si el parámetro 'confirmacion' está presente en la URL

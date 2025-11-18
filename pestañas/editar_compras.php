@@ -49,8 +49,9 @@ if ($id) {
 }
 </style>
 
-<div class="contenedor__servicios">
-    <h1>Editar Compra</h1>
+<div class="principal">
+    <div>
+    <h1 class="text-2xl font-bold text-blue-600 text-center">Editar Compra</h1>
         <?php
         // Verifica si el parámetro 'confirmacion' está presente en la URL
         if (isset($_GET['confirmacion'])) {
@@ -89,6 +90,7 @@ if ($id) {
         </div>
     </form>
 </div>
+            </div>
 </body>
 </html>
 

@@ -37,17 +37,13 @@ $fecha_final = isset($_GET['fecha_final']) ? $_GET['fecha_final'] : $fecha_final
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte Semanal</title>
-    <style>
-        h2{
-          text-align:center;  
-        }
-    </style>
 </head>
 
 <body id="reporte_semanal">
     <div class="">
         <div class="contenedor__cronograma">
-            <h2>Reporte</h2>
+            <h2 class="text-2xl font-bold text-blue-600 text-center">Reporte</h2>
+            <br>
             <form class="reporte_formulario" method="GET" action="">
                 <label for="fecha">Fecha Inicial:</label>
                 <input class="formulario_reporte_fecha" type="date" id="fecha_inicial" name="fecha_inicial" value="<?php echo $fecha_inicial; ?>">

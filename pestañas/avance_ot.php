@@ -15,18 +15,19 @@
 <div class="principal">
     <section class="mensaje">
         <div class="centrado">
-            <h2>Reporte de OT</h2>
+            <h2 class="text-2xl font-bold text-blue-600">Reporte de OT</h2>
+            <br>
             <form method="GET" action="">
                 <label for="ot">Ingrese la OT:</label>
-                <input type="text" id="ot" name="ot" required>
+                <input style="border: 1px solid #000; padding: 4px; border-radius: 4px;" type="text" id="ot" name="ot" required>
                 <input type="hidden" name="pestaña" value="avance_ot">
                 <label for="estado">Seleccione el estado:</label>
-                <select name="estado">
+                <select style="border: 1px solid #000; padding: 4px; border-radius: 4px;" name="estado">
                     <option value="todo">Todo</option>
                     <option value="terminado">Terminado</option>
                     <option value="pendiente">Pendiente</option>
                 </select>
-                <input type="submit" value="Buscar">
+                <input style="border: 1px solid #000; padding: 4px; border-radius: 4px;" type="submit" value="Buscar">
             </form>
         </div>
         <?php

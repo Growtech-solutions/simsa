@@ -115,8 +115,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </style>
 
 <body id="alta_de_factura">
-    <div class="contenedor__servicios">
-        <h2 class="titulo">Alta de factura</h2>
+    <div class="principal">
+        <div>
+        <h2 class="text-2xl font-bold text-blue-600 text-center">Alta de factura</h2>
         <br>
         <form class="servicios__form" action="" method="POST" onsubmit="prepararEnvio()">
             <label>OT:</label>
@@ -143,6 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
     </div>
+    <div>
 
     <script>
         function obtenerNombreProyecto() {

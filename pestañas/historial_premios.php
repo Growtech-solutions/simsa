@@ -17,7 +17,12 @@
 
     <div class="principal">
         <section>
-            <h1>Historial de Premios</h1>
+            <form method="get" action="">
+            <input type="hidden" name="pestaña" value="premios">
+            <button type="submit" style="padding: 10px 20px; border: none; color: white; background-color: #007bff; border-radius: 4px; cursor: pointer; font-size: 14px;">+ Registrar bono</button>
+        </form>
+            <h1 class="text-2xl font-bold text-blue-600">Historial de Premios</h1>
+            <br>
             <div class="buscador">
                 <form class="reporte_formulario" method="GET" action="">
                    

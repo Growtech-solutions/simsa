@@ -35,53 +35,74 @@ $header_loc = htmlspecialchars($_GET['header_loc']);
 
 </style>
 <body id="altadeproyecto">
-    <div class="contenedor__servicios">
-        <h2 class="titulo">Alta de proyecto</h2>
-        <form class="servicios__form" action="../php/procesar_alta_proyecto.php" method="POST">
-            <input class="entrada" type="text" id="ot" name="ot" placeholder="OT" value="<?php echo $siguiente_ot; ?>" required readonly>
+    <div class="principal">
+        <div>
+        <div class="max-w-4xl mx-auto p-6">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Alta de proyecto</h2>
+            <form class="space-y-4" action="../php/procesar_alta_proyecto.php" method="POST">
+            <div class="w-full">
+                <input class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-100" 
+                   type="text" id="ot" name="ot" placeholder="OT" value="<?php echo $siguiente_ot; ?>" required readonly>
+            </div>
             
-            <input class="entrada" type="text" id="nombreDelProyecto" name="descripcion" placeholder="Nombre del proyecto" required>
+            <div class="w-full">
+                <input class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                   type="text" id="nombreDelProyecto" name="descripcion" placeholder="Nombre del proyecto" required>
+            </div>
             
-            <?php 
-                 
-                $selectDatos->obtenerOpciones('listas', 'usuarios', 'usuarios', 'entrada'); 
-            ?>
+            <div class="w-full">
+                <?php 
+                $selectDatos->obtenerOpciones('listas', 'usuarios', 'usuarios', 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'); 
+                ?>
+            </div>
 
-            <select class="entrada" id="pedido" name="pedido" required>
+            <div class="w-full">
+                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    id="pedido" name="pedido" required>
                 <option value="" disabled selected>Selecciona un pedido</option>
                 <?php
-                $query_pedidos = "SELECT id, descripcion, cliente, planta FROM pedido"; // Ajusta la consulta según tu base de datos
+                $query_pedidos = "SELECT id, descripcion, cliente, planta FROM pedido";
                 $result_pedidos = mysqli_query($conexion, $query_pedidos);
                 if ($result_pedidos) {
                     while ($row_pedido = mysqli_fetch_assoc($result_pedidos)) {
-                        echo "<option value='" . $row_pedido['id'] . "'>" . htmlspecialchars($row_pedido['descripcion']) ."-". htmlspecialchars($row_pedido['cliente']) ."-".htmlspecialchars($row_pedido['planta']) ."</option>";
+                    echo "<option value='" . $row_pedido['id'] . "'>" . htmlspecialchars($row_pedido['descripcion']) ."-". htmlspecialchars($row_pedido['cliente']) ."-".htmlspecialchars($row_pedido['planta']) ."</option>";
                     }
                 } else {
                     echo "<option value='' disabled>Error al cargar pedidos</option>";
                 }
                 ?>
-            </select>
-            <?php 
-                 
-                $selectDatos->obtenerOpciones('listas', 'responsables', 'responsable', 'entrada'); 
-            ?>
-            <input class="entrada" type="number" id="valor" name="valor" placeholder="Valor" required step="0.01" title="Por favor, ingresa un número con hasta 2 decimales.">
+                </select>
+            </div>
+
+            <div class="w-full">
+                <?php 
+                $selectDatos->obtenerOpciones('listas', 'responsables', 'responsable', 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'); 
+                ?>
+            </div>
+
+            <div class="w-full">
+                <input class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                   type="number" id="valor" name="valor" placeholder="Valor" required step="0.01" 
+                   title="Por favor, ingresa un número con hasta 2 decimales.">
+            </div>
+
             <input type="hidden" name="header_loc" value="<?php echo $header_loc; ?>">
 
-            <div class="altadeproyecto__boton__enviar">
-                <input class="boton__enviar" type="submit" value="Enviar">
+            <div class="flex justify-end">
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                Enviar
+                </button>
             </div>
-        </form>
+            </form>
 
-        <?php
-        // Verifica si el parámetro 'confirmacion' está presente en la URL
-        if (isset($_GET['confirmacion'])) {
-            // Sanear el valor para evitar inyección de archivos
+            <?php
+            if (isset($_GET['confirmacion'])) {
             $confirmacion = htmlspecialchars($_GET['confirmacion']);
-            // Mostrar la confirmación de forma adecuada
-            echo "<div class='confirmacion'>$confirmacion</div>";
-        }
-        ?>
+            echo "<div class='mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg'>$confirmacion</div>";
+            }
+            ?>
+        </div>
+        </div>
     </div>
 </body>
 </html>

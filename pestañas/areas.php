@@ -20,9 +20,10 @@ if ($resultado_count->num_rows > 0) {
     $cantidad_piezas = $fila_count['cantidad_piezas'];
 }
 ?>
-        <div class="">
+        <div class="principal">
             <section>  
-                <h1>Piezas de <?php echo htmlspecialchars($pagina_id); ?></h1>
+                <h1 class="text-2xl font-bold text-blue-600 text-center">Piezas de <?php echo htmlspecialchars($pagina_id); ?></h1>
+                <br>
                 <div class="buscador">
                 <form class="reporte_formulario form_area" method="GET" action="">
                     <label for="ot">OT:</label>

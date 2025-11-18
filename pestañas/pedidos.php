@@ -13,7 +13,8 @@
 <?php $header_loc= $_GET['header_loc']; ?>
 <div class="principal">
     <section>
-        <h1>Pedidos</h1>
+        <h1 class="text-2xl font-bold text-blue-600">Pedidos</h1>
+        <br>
         <div class="buscador">
             <form class="reporte_formulario" method="GET" action="">
                 <label for="descripcion">Descripción:</label>
@@ -117,7 +118,7 @@
             if ($stmt->num_rows > 0) {
                 echo "<div class='reporte_tabla'>";
                 echo "<table>";
-                echo "<tr><th>ID</th><th>Cliente</th><th>Descripción</th><th>Fecha Alta</th><th>Valor en Pesos</th><th>Acciones</th></tr>";
+                echo "<tr><th>ID</th><th>Cliente</th><th>Descripción</th><th>Fecha Alta</th><th>Valor en Pesos</th><th>Acciones</th><th>Contrato</th></tr>";
 
                 while ($stmt->fetch()) {
                     echo "<tr>";
@@ -127,9 +128,12 @@
                     echo "<td>" . htmlspecialchars($fecha_alta) . "</td>";
                     echo "<td>" . htmlspecialchars($valor_pesos) . "</td>";
                     echo "<td>
-                            <a href='../header_main_aside/$header_loc.php?pestaña=editar_pedido&header_loc=$header_loc&id=" . htmlspecialchars($id) . "'>Editar</a> | 
-                            <a href='../php/eliminar_pedido.php?header_loc=$header_loc&id=" . htmlspecialchars($id) . "' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este pedido?\");'>Eliminar</a>
+                            <a class=\"liga\" href='../header_main_aside/$header_loc.php?pestaña=editar_pedido&header_loc=$header_loc&id=" . htmlspecialchars($id) . "'>Editar</a> | 
+                            <a class=\"liga\" href='../php/eliminar_pedido.php?header_loc=$header_loc&id=" . htmlspecialchars($id) . "' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este pedido?\");'>Eliminar</a>
                           </td>";
+                    echo "<td>
+                            <a class=\"liga\" href='../header_main_aside/$header_loc.php?pestaña=precios&header_loc=$header_loc&id_pedido=" . htmlspecialchars($id) . "'>Contrato</a>
+                    </td>";
                     echo "</tr>";
                 }
                 echo "</table>";

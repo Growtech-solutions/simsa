@@ -85,9 +85,14 @@ $pestaña= $_GET['pestaña'];
 <body id="facturaspedidos">
     <div class="principal">
         <section class="mensaje">
+            <form method="get" action="">
+            <input type="hidden" name="pestaña" value="alta_proyectos">
+            <button type="submit" style="padding: 10px 20px; border: none; color: white; background-color: #007bff; border-radius: 4px; cursor: pointer; font-size: 14px;">+ Nuevo proyecto</button>
+        </form>
             <div class="centrado">
                 
-                <h2>Reporte de OT</h2>
+                <h2 class="text-2xl font-bold text-blue-600">Reporte de OT</h2>
+                <br>
                 <form class="reporte_formulario" method="GET" action="">
                     <label for="ot">OT:</label>
                     <input class="formulario_reporte_ot" type="text" id="ot" name="ot" placeholder="Buscar por OT">
@@ -322,7 +327,7 @@ $pestaña= $_GET['pestaña'];
                     
                     echo "<tr style='background-color: #f2f2f2;'>";
                         echo "<td>" . $fila_ot['fecha_alta'] . "</td>";
-                        echo "<td>" . $fila_ot['ot'] . "</td>";
+                        echo "<td class='liga'><a href='general.php?pestaña=evaluacion_ot&ot=" . urlencode($fila_ot['ot']) . "' target='_blank'>" . $fila_ot['ot'] . "</a></td>";
                         echo "<td>" . $fila_ot['cliente'] . "</td>";
                         echo "<td>" . $fila_ot['descripcion'] . "</td>";
                         echo "<td>" . $fila_ot['responsable'] . "</td>";

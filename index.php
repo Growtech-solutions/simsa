@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         header("Location: header_main_aside/almacen.php");
                     exit();
                     case 'gerencia':
-                        header("Location:  home.php");
+                        header("Location:  header_main_aside/general.php");
                     exit();
                     default:
                         // Redirigir al home para cualquier otro rol

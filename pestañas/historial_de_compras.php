@@ -17,7 +17,18 @@
 
     <div class="principal">
         <section>
-            <h1>Compras</h1>
+            <div>
+    <form method="get" action="" style="display: inline-block; margin-right: 10px;">
+        <input type="hidden" name="pestaña" value="requisicion">
+        <button type="submit" style="padding: 10px 20px; border: none; color: white; background-color: #007bff; border-radius: 4px; cursor: pointer; font-size: 14px;">+ Requisición</button>
+    </form>
+    <form method="get" action="" style="display: inline-block;">
+        <input type="hidden" name="pestaña" value="solicitudcompra">
+        <button type="submit" style="padding: 10px 20px; border: none; color: white; background-color: #007bff; border-radius: 4px; cursor: pointer; font-size: 14px;">+ Solicitud compra</button>
+    </form>
+</div>
+            <h1 class="text-2xl font-bold text-blue-600 text-center">Compras</h1>
+            <br>
             <div class="buscador">
                 <form class="reporte_formulario" method="GET" action="">
                     <label for="ot">OT:</label>

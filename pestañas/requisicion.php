@@ -75,7 +75,7 @@
         right: 0;
         left: 0;
         z-index: 1;
-        height: 40px;
+        height: 60px;
         padding: 10px;
         line-height: 20px;
         color: #495057;
@@ -105,7 +105,7 @@
 </style>
 <div class="principal">
     <div>
-    <h2 class="titulo">Requisición</h2>
+    <h2 class="text-2xl font-bold text-blue-600 text-center">Requisición</h2>
     <?php
         // Verifica si el parámetro 'confirmacion' está presente en la URL
         if (isset($_GET['confirmacion'])) {

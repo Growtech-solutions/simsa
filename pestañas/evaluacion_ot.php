@@ -86,12 +86,13 @@
 <div class="principal">
     <section class="mensaje">
         <div class="centrado">
-            <h2>Reporte de OT</h2>
-            <form method="GET" action="">
-                <label for="ot">Ingrese la OT:</label>
-                <input type="text" id="ot" name="ot" required>
+            <h2 class="text-2xl font-bold text-blue-600">Reporte de OT</h2>
+            <br>
+            <form method="GET" action="" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;">
+                <label for="ot" style="font-weight:bold;color:#1d143e;">Ingrese la OT:</label>
+                <input type="text" id="ot" name="ot" required style="padding:8px 12px;border:2px solid #1d143e;border-radius:5px;font-size:16px;width:200px;">
                 <input type="hidden" name="pestaña" value="evaluacion_ot">
-                <input type="submit" value="Buscar">
+                <input type="submit" value="Buscar" style="padding:8px 20px;background:#1d143e;color:white;border:none;border-radius:5px;font-size:16px;cursor:pointer;font-weight:bold;">
             </form>
         </div>
         <?php
@@ -265,12 +266,12 @@
                 echo "<div class='linea-gris'></div>";
 
                 echo "<div class='resumen'>";
-                    echo "<p><strong>Horas trabajadas:</strong> " . $tiempo . "</p>";
+                    echo "<p><strong>Horas trabajadas:</strong> <a class='liga' href=\"general.php?pestaña=tiempo_piezas&ot=" . urlencode($ot) . "\" target=\"_blank\">" . $tiempo . "</a></p>";
                     echo "<p><strong>Mano de obra:</strong> $" . number_format($costo_mano_de_obra, 2) . "</p>";
-    
-                    echo "<p><strong>Valor:</strong> $" . number_format($total_pedidos, 2) . "</p>";
-                    echo "<p><strong>Compras:</strong> $" . number_format($compras, 2) . "</p>";
-                    echo "<p><strong>Facturas:</strong> $" . number_format($total_facturas, 2) . "</p>";
+
+                    echo "<p><strong>Pedidos:</strong> $" . number_format($total_pedidos, 2) . "</p>";
+                        echo "<p><strong>Compras:</strong> <a class='liga' href=\"general.php?pestaña=historial_de_compras&ot=" . urlencode($ot) . "\" target=\"_blank\">$" . number_format($compras, 2) . "</a></p>";
+                        echo "<p><strong>Facturas:</strong> <a class='liga' href=\"general.php?pestaña=facturas&ot=" . urlencode($ot) . "\" target=\"_blank\">$" . number_format($total_facturas, 2) . "</a></p>";
                 echo "</div>";
                 echo "<div class='linea-gris'></div>";
                     echo "<div class='resumen2'>";

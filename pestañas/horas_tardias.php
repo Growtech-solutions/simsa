@@ -32,7 +32,7 @@
 <body id="asignaciondehoras">
 <div class="principal">
     <div>
-    <h2 class="titulo">Registro de horas</h2>
+    <h2 class="text-2xl font-bold text-blue-600 text-center">Registro de horas</h2>
     <?php 
         if (isset($_GET['confirmacion'])) {
             // Sanear el valor para evitar inyección de archivos

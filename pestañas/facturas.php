@@ -12,7 +12,12 @@
 <body id="facturas">
     <div class="principal">
         <section>
-            <h1>Facturas</h1>
+            <form method="get" action="">
+            <input type="hidden" name="pestaña" value="alta_de_factura">
+            <button type="submit" style="padding: 10px 20px; border: none; color: white; background-color: #007bff; border-radius: 4px; cursor: pointer; font-size: 14px;">+ Registrar factura</button>
+        </form>
+            <h1 class="text-2xl font-bold text-blue-600 text-center">Facturas</h1>
+            <br>
             <div class="buscador">
                 <form class="reporte_formulario" method="GET" action="">
                     <label for="ot">OT:</label>
@@ -226,7 +231,7 @@
 
             while ($stmt->fetch()) {
                 echo "<tr>
-                    <td><a href='$header_loc.php?pestaña=editar_factura&header_loc=$header_loc&id=".$factura_id."'>{$factura_id}</a></td>
+                    <td><a class='liga' href='$header_loc.php?pestaña=editar_factura&header_loc=$header_loc&id=".$factura_id."'>{$factura_id}</a></td>
                     <td>{$ot}</td>
                     <td>{$factura_folio}</td>
                     <td class='dinero'>{$factura_valor}</td>

@@ -9,7 +9,8 @@
     </style>
         <div class="principal">
             <section>
-                <h1>Compras pendientes</h1>
+                <h1 class="text-2xl font-bold text-blue-600 text-center">Compras pendientes</h1>
+                <br>
                 <div class="buscador">
 
                     <form class="reporte_formulario" method="GET" action="">
@@ -123,7 +124,7 @@ if ($resultad->num_rows > 0) {
             if ($fila_oc['firma_llegada'] == null) {
                 echo "<form action='' method='POST'>";
                     echo "<input type='hidden' name='id_firma_almacen' value='" . $fila_oc["id"] . "'>";
-                    echo "<input class='iniciar' type='submit' name='firma' value='Firma'>";
+                    echo "<input style='border: 1px solid black; border-radius: 4px; padding: 5px 10px; cursor: pointer;' class='iniciar' type='submit' name='firma' value='Firma'>";
                 echo "</form>";
             } else {
                 echo "Firmado";
@@ -131,7 +132,7 @@ if ($resultad->num_rows > 0) {
             if ($fila_oc['pago'] == null) {
                 echo "<form action='' method='POST'>";
                     echo "<input type='hidden' name='pagado' value='" . $fila_oc["id"] . "'>";
-                    echo "<input class='iniciar' type='submit' name='submit_pagado' value='Pagar'>";
+                    echo "<input style='border: 1px solid black; border-radius: 4px; padding: 5px 10px; cursor: pointer;' class='iniciar' type='submit' name='submit_pagado' value='Pagar'>";
                 echo "</form>";
             } else {
                 echo "Pagado";
