@@ -13,7 +13,8 @@
 <body id="encargado">
     <div class="principal">
         <div>
-            <h2 class="center">Reporte</h2>
+            <h2 class="text-2xl font-bold text-blue-600 text-center">Reporte</h2>
+            <br>
             <form class="reporte_formulario" method="GET" action="">
                 <label for="fecha">Fecha:</label>
                 <input class="formulario_reporte_fecha" type="date" id="fecha" name="fecha">

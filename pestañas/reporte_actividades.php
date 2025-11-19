@@ -195,7 +195,7 @@ $resultado = $conexion->query($sql);
                                     <input type='submit' name='actualizar_cantidad' value='Actualizar' style='font-size:10px;'>
                                 </form>
                             </td>";
-                            $valor_total=($fila['cantidad']*$actividad["precio"]);
+                            $valor_total = ($fila['cantidad'] * ($actividad["precio"] ?? 0));
                             echo "<td>" . $valor_total . "</td>";
                             echo "<td>" . ($costo) . "</td>";
                             echo "<td>";

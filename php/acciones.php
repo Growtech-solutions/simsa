@@ -374,4 +374,16 @@ if (isset($_POST['actualizar_cantidad']) && $_POST['id_encargado_cantidad']) {
     $conexion->query("UPDATE encargado SET cantidad = $nueva_cantidad WHERE id = $id_encargado");
     header("Location: " . $_SERVER['HTTP_REFERER'] );
 }
+if (isset($_POST['actualizar_pieza']) && $_POST['id_encargado_pieza']) {
+    $id_pieza = intval($_POST['nueva_pieza']);
+    $id_encargado = intval($_POST['id_encargado_pieza']);
+    $conexion->query("UPDATE encargado SET id_pieza = $id_pieza WHERE id = $id_encargado");
+    header("Location: " . $_SERVER['HTTP_REFERER'] );
+}
+if (isset($_POST['actualizar_actividad']) && $_POST['id_encargado_actividad']) {
+    $id_actividad = intval($_POST['nueva_actividad']);
+    $id_encargado = intval($_POST['id_encargado_actividad']);
+    $conexion->query("UPDATE encargado SET actividad = $id_actividad WHERE id = $id_encargado");
+    header("Location: " . $_SERVER['HTTP_REFERER'] );
+}
     
