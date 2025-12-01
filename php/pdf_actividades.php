@@ -116,7 +116,7 @@ while ($fila = $resultado->fetch_assoc()) {
         $pdf->Cell(10, 7, '', 0, 0); // Margen izquierdo pequeño
         // Usar MultiCell para el nombre de la pieza, alineado a la izquierda
         $pdf->SetX(20); // Margen izquierdo pequeño (10 + 10)
-        $pdf->MultiCell(160, 7, utf8_decode($pieza), 1, 'C');
+        $pdf->MultiCell(160, 6, utf8_decode($pieza), 1, 'C');
 
         // Encabezado de la tabla alineado a la izquierda
         $pdf->SetFont('Arial', 'B', 10);
