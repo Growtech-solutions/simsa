@@ -195,6 +195,9 @@ ini_set('error_log', '/var/www/simsa/php_errors.log');
         </button>
         <ul x-show="open" class="space-y-1 pl-6" x-cloak>
           <li>
+        <a href="general.php?pestaña=nomina" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="wallet"></i>Nomina</a>
+          </li>
+          <li>
         <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=facturas" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="file-text"></i>Facturas</a>
           </li>
           <li>

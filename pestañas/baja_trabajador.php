@@ -11,6 +11,8 @@
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            
+            background-color: #fff;
         }
         .formulario label {
             display: block;
@@ -20,6 +22,8 @@
             width: 90%;
             padding: 10px;
             margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
         .formulario button {
             padding: 10px 20px;
@@ -35,7 +39,7 @@
 </head>
 <body>
 <div class="formulario">
-    <h2>Registrar Baja</h2>
+    <h1 class="text-2xl font-bold text-blue-600">Registrar Baja</h1>
     <form method="POST">
         <label for="trabajador">Seleccionar Trabajador:</label>
         <select id="trabajador" name="trabajador" required>
@@ -69,7 +73,6 @@
     </form>
 
     <?php
-require_once '../conexion_transimex.php'; // Asegúrate de incluir tu archivo de conexión
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $trabajador = $_POST['trabajador'];

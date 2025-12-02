@@ -386,4 +386,49 @@ if (isset($_POST['actualizar_actividad']) && $_POST['id_encargado_actividad']) {
     $conexion->query("UPDATE encargado SET actividad = $id_actividad WHERE id = $id_encargado");
     header("Location: " . $_SERVER['HTTP_REFERER'] );
 }
+//Periodos nomina
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipoPeriodo'], $_POST['fechaInicio'], $_POST['fechaFinal'])) {
+    $tipoPeriodo = $_POST['tipoPeriodo'];
+    $fechaInicio = $_POST['fechaInicio'];
+    $fechaFinal = $_POST['fechaFinal'];
+    if ($tipoPeriodo=='Aguinaldo' or $tipoPeriodo=='PTU'){
+        $clave_tipo_nomina = 'E';
+    }
+    else{
+        $clave_tipo_nomina = 'O';
+    }
+    switch ($tipoPeriodo) {
+        case 'Semanal':
+            $PeriodicidadPago = '02';
+        break;
+        case 'Catorcenal':
+            $PeriodicidadPago = '03';
+        break;
+        case 'Quincenal':
+            $PeriodicidadPago = '04';
+        break;
+        case 'Mensual':
+            $PeriodicidadPago = '05';
+        break;
+        case 'Aguinaldo':
+            $PeriodicidadPago = '99';
+        break;
+        case 'PTU':
+            $PeriodicidadPago = '99';
+        break;
+        default:
+            $PeriodicidadPago = '99'; // Valor por defecto si no coincide con ningún caso
+    }
+
+    $stmt = $conexion->prepare("INSERT INTO periodo (tipo, fecha_inicio, fecha_fin, periodicidad_pago, clave_tipo_nomina) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $tipoPeriodo, $fechaInicio, $fechaFinal, $PeriodicidadPago, $clave_tipo_nomina);
+
+    if ($stmt->execute()) {
+        header("Location: general.php?pestaña=nomina&success=1");
+        exit;
+    } else {
+        $error = "Error al guardar el periodo.";
+    }
+    $stmt->close();
+}
     
