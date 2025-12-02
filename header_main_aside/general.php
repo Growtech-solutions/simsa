@@ -120,7 +120,7 @@ ini_set('error_log', '/var/www/simsa/php_errors.log');
         <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=trabajadores" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="user"></i>Trabajadores</a>
           </li>
           <li>
-        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=reporte_semanal" onclick="cambiarTitulo('Asistencia')" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="check-square"></i>Asistencia</a>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=reporte_asistencia" onclick="cambiarTitulo('Asistencia')" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="check-square"></i>Asistencia</a>
           </li>
           <!--<li>
         <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=habilitaciones" onclick="cambiarTitulo('Habilitaciones')" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="check-circle"></i>Habilitaciones</a>

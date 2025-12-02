@@ -132,6 +132,9 @@ if (file_exists($errores_dir) && $_GET['timbrado'] === '1') {
                       data-horas-simples="'.floatval($trabajador['horas_simples'] ?? 0).'"
                       data-horas-dobles="'.floatval($trabajador['horas_dobles'] ?? 0).'"
                       data-horas-triples="'.floatval($trabajador['horas_triples'] ?? 0).'"
+                      data-valor-horas-simples="'.floatval($trabajador['valor_horas_simples'] ?? 0).'"
+                      data-valor-horas-dobles="'.floatval($trabajador['valor_horas_dobles'] ?? 0).'"
+                      data-valor-horas-triples="'.floatval($trabajador['valor_horas_triples'] ?? 0).'"
                       data-vacaciones="'.floatval($trabajador['valor_vacaciones'] ?? 0).'"
                       data-bono-asistencia="'.floatval($trabajador['bono_asistencia'] ?? 0).'"
                       data-bono-puntualidad="'.floatval($trabajador['bono_puntualidad'] ?? 0).'"
@@ -200,9 +203,9 @@ if (file_exists($errores_dir) && $_GET['timbrado'] === '1') {
             rows += '<tr'+(danger?' class="table-danger"':'')+'><td>'+label+'</td><td>'+(negative?'-':'')+'$'+parseFloat(value).toFixed(2)+'</td></tr>';
           }
         }
-        addRow('Horas simples', btn.getAttribute('data-horas-simples'), false, false);
-        addRow('Horas dobles', btn.getAttribute('data-horas-dobles'), false, false);
-        addRow('Horas triples', btn.getAttribute('data-horas-triples'), false, false);
+        addRow('Horas simples', btn.getAttribute('data-valor-horas-simples'), false, false);
+        addRow('Horas dobles', btn.getAttribute('data-valor-horas-dobles'), false, false);
+        addRow('Horas triples', btn.getAttribute('data-valor-horas-triples'), false, false);
         addRow('Vacaciones', btn.getAttribute('data-vacaciones'), false, false);
         addRow('Asistencia', btn.getAttribute('data-bono-asistencia'), false, false);
         addRow('Puntualidad', btn.getAttribute('data-bono-puntualidad'), false, false);

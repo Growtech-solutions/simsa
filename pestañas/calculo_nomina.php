@@ -236,10 +236,14 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     $valor_complemento = $sueldo_complemento * ($horas_simples + $horas_dobles*2 + $horas_triples*3);
 
     $base_bono = $valor_horas_simples + $valor_horas_dobles + $valor_horas_triples;
-
+    $bono_asistencia = 0;
+    $bono_puntualidad = 0;
+    $despensa = 0;
+    if ($horas_simples>= 40 && $faltas_en_semana == 0){
             $bono_asistencia = $base_bono*0.1;
             $bono_puntualidad = $base_bono*0.1;
             $despensa = 300;
+    }
     
     $valor_bonos = $bono_asistencia + $bono_puntualidad + $despensa;
     $valor_premios = $sueldo_hora_base * $total_bonos_asistencias;
