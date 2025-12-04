@@ -5,6 +5,7 @@ $conexion = new mysqli($host, $usuario, $contrasena, $base_de_datos);
 include '../conexion_transimex.php';
 $conexion_transimex = new mysqli($host_transimex, $usuario_transimex, $contrasena_transimex, $base_de_datos_transimex);
 
+include '../conexion_servicios.php';
 // Verifica si la conexión fue exitosa
 if ($conexion->connect_error) {
     die("Conexión fallida: " . $conexion->connect_error);
@@ -302,6 +303,24 @@ if (isset($_POST['submit_pagado'])) {
         $stmt->close();
     }
 }
+if (isset($_POST['guardar_base'])){
+    $nombre = $_POST['nombre'] ?? '';
+    $apellidos = $_POST['apellidos'] ?? '';
+    $rfc = $_POST['rfc'] ?? '';
+    $nss = $_POST['nss'] ?? '';
+    $curp = $_POST['curp'] ?? '';
+
+    // Asumiendo que tienes el ID del trabajador
+    $id = $_POST['id'] ?? null;
+
+    if ($id) {
+        $stmt = $conexion_transimex->prepare("UPDATE trabajadores SET nombre=?, apellidos=?, rfc=?, nss=?, curp=? WHERE id=?");
+        $stmt->bind_param("sssssi", $nombre, $apellidos, $rfc, $nss, $curp, $id);
+        $stmt->execute();
+    }
+    // Redirige o muestra mensaje
+    header("Location: " . $_SERVER['HTTP_REFERER'] );
+}
 if (isset($_POST['guardar_personal'])) {
         $telefono = $_POST['telefono'] ?? '';
         $correo = $_POST['correo'] ?? '';
@@ -309,13 +328,14 @@ if (isset($_POST['guardar_personal'])) {
         $estado = $_POST['estado'] ?? '';
         $cp = $_POST['codigo_postal'] ?? '';
         $fecha_nacimiento = $_POST['fecha_nacimiento'] ?? '';
+        $regimen_fiscal = $_POST['regimen_fiscal'] ?? '';
 
         // Asumiendo que tienes el ID del trabajador
         $id = $_POST['id'] ?? null;
 
         if ($id) {
-            $stmt = $conexion_transimex->prepare("UPDATE trabajadores SET telefono=?, correo=?, direccion=?, clave_entidad_fed=?, codigo_postal=?, fecha_nacimiento=? WHERE id=?");
-            $stmt->bind_param("ssssssi", $telefono, $correo, $direccion, $estado, $cp, $fecha_nacimiento, $id);
+            $stmt = $conexion_transimex->prepare("UPDATE trabajadores SET telefono=?, correo=?, direccion=?, clave_entidad_fed=?, codigo_postal=?, fecha_nacimiento=?, regimen_fiscal=? WHERE id=?");
+            $stmt->bind_param("sssssssi", $telefono, $correo, $direccion, $estado, $cp, $fecha_nacimiento, $regimen_fiscal, $id);
             $stmt->execute();
         }
         // Redirige o muestra mensaje
@@ -329,45 +349,59 @@ if (isset($_POST['guardar_personal'])) {
     $supervisor = $_POST['supervisor'] ?? '';
     $turno = $_POST['turno'] ?? '';
     $id = $_POST['id'] ?? null;
+    $cronograma = $_POST['cronograma'] ?? 0; // Asignar valor por defecto
 
     if ($id) {
-        $stmt = $conexion_transimex->prepare("UPDATE trabajadores SET empresa=?, area=?, puesto=?, supervisor=?, turno=? WHERE id=?");
-        $stmt->bind_param("sssssi", $empresa, $area, $puesto, $supervisor, $turno, $id);
+        $stmt = $conexion_transimex->prepare("UPDATE trabajadores SET empresa=?, area=?, puesto=?, supervisor=?, turno=?, cronograma=? WHERE id=?");
+        $stmt->bind_param("ssssssi", $empresa, $area, $puesto, $supervisor, $turno, $cronograma, $id);
         $stmt->execute();
     }
     header("Location: " . $_SERVER['HTTP_REFERER'] );
 }
 
 
-    if (isset($_POST['guardar_imss'])) {
-        $fecha_ingreso = $_POST['fecha_ingreso'] ?? '';
+if (isset($_POST['guardar_imss'])) {
+    $fecha_ingreso = $_POST['fecha_ingreso'] ?? '';
+    $id = $_POST['id'] ?? null;
+    if ($id) {
+        $stmt = $conexion_transimex->prepare("UPDATE trabajadores SET fecha_ingreso=? WHERE id=?");
+        $stmt->bind_param("si", $fecha_ingreso, $id);
+        $stmt->execute();
+    }
+    // Redirige o muestra mensaje
+header("Location: " . $_SERVER['HTTP_REFERER'] );
+}
+
+if (isset($_POST['guardar_nomina'])) {
+    if (isset($_POST['guardar_nomina'])) {
+        $contrato = $_POST['contrato'] ?? '';
+        $salario = $_POST['salario'] ?? '';
+        $complemento = $_POST['complemento'] ?? '0.00';
+        $forma_pago = $_POST['forma_pago'] ?? '';
+        $clave_bancaria = $_POST['clave_bancaria'] ?? '';
+        $banco = $_POST['banco'] ?? '';
         $id = $_POST['id'] ?? null;
+        $calculo_horas = $_POST['calculo_horas'] ?? 'reloj'; // Valor por defecto
+        $tipo_contrato = $_POST['tipo_contrato'] ?? '';
+
         if ($id) {
-            $stmt = $conexion_transimex->prepare("UPDATE trabajadores SET fecha_ingreso=? WHERE id=?");
-            $stmt->bind_param("si", $fecha_ingreso, $id);
+            $stmt = $conexion_transimex->prepare("UPDATE trabajadores SET contrato=?, salario=?, forma_de_pago=?, clave_bancaria=?, banco=?, calculo_horas=?, tipo_contrato=?, complemento=? WHERE id=?");
+            $stmt->bind_param("sdssssssi", $contrato, $salario, $forma_pago, $clave_bancaria, $banco, $calculo_horas, $tipo_contrato, $complemento, $id);
             $stmt->execute();
         }
-        // Redirige o muestra mensaje
-    header("Location: " . $_SERVER['HTTP_REFERER'] );
     }
-
-    if (isset($_POST['guardar_nomina'])) {
-        if (isset($_POST['guardar_nomina'])) {
-    $contrato = $_POST['contrato'] ?? '';
-    $salario = $_POST['salario'] ?? '';
-    $forma_pago = $_POST['forma_pago'] ?? '';
-    $clave_bancaria = $_POST['clave_bancaria'] ?? '';
-    $banco = $_POST['banco'] ?? '';
+    header("Location: " . $_SERVER['HTTP_REFERER'] );
+}
+if (isset($_POST['guardar_imss'])) {
+    $fecha_ingreso = $_POST['fecha_ingreso'] ?? '';
     $id = $_POST['id'] ?? null;
-
     if ($id) {
-        $stmt = $conexion_transimex->prepare("UPDATE trabajadores SET contrato=?, salario=?, forma_de_pago=?, clave_bancaria=?, banco=? WHERE id=?");
-        $stmt->bind_param("sdsssi", $contrato, $salario, $forma_pago, $clave_bancaria, $banco, $id);
+        $stmt = $conexion_transimex->prepare("UPDATE trabajadores SET fecha_ingreso=? WHERE id=?");
+        $stmt->bind_param("si", $fecha_ingreso, $id);
         $stmt->execute();
     }
-}
     header("Location: " . $_SERVER['HTTP_REFERER'] );
-    }
+}
 if (isset($_POST['actualizar_cantidad']) && $_POST['id_encargado_cantidad']) {
     $nueva_cantidad = intval($_POST['nueva_cantidad']);
     $id_encargado = intval($_POST['id_encargado_cantidad']);
@@ -387,7 +421,7 @@ if (isset($_POST['actualizar_actividad']) && $_POST['id_encargado_actividad']) {
     header("Location: " . $_SERVER['HTTP_REFERER'] );
 }
 //Periodos nomina
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipoPeriodo'], $_POST['fechaInicio'], $_POST['fechaFinal'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipoPeriodo'], $_POST['fechaInicio'], $_POST['fechaFinal'] ) && isset($_POST['accion']) && $_POST['accion'] === 'crear_periodo_simsa') {
     $tipoPeriodo = $_POST['tipoPeriodo'];
     $fechaInicio = $_POST['fechaInicio'];
     $fechaFinal = $_POST['fechaFinal'];
@@ -431,4 +465,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipoPeriodo'], $_POST
     }
     $stmt->close();
 }
-    
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipoPeriodo'], $_POST['fechaInicio'], $_POST['fechaFinal'] ) && isset($_POST['accion']) && $_POST['accion'] === 'crear_periodo_servicios') {
+    $tipoPeriodo = $_POST['tipoPeriodo'];
+    $fechaInicio = $_POST['fechaInicio'];
+    $fechaFinal = $_POST['fechaFinal'];
+    if ($tipoPeriodo=='Aguinaldo' or $tipoPeriodo=='PTU'){
+        $clave_tipo_nomina = 'E';
+    }
+    else{
+        $clave_tipo_nomina = 'O';
+    }
+    switch ($tipoPeriodo) {
+        case 'Semanal':
+            $PeriodicidadPago = '02';
+        break;
+        case 'Catorcenal':
+            $PeriodicidadPago = '03';
+        break;
+        case 'Quincenal':
+            $PeriodicidadPago = '04';
+        break;
+        case 'Mensual':
+            $PeriodicidadPago = '05';
+        break;
+        case 'Aguinaldo':
+            $PeriodicidadPago = '99';
+        break;
+        case 'PTU':
+            $PeriodicidadPago = '99';
+        break;
+        default:
+            $PeriodicidadPago = '99'; // Valor por defecto si no coincide con ningún caso
+    }
+
+    $stmt = $conexion_servicios->prepare("INSERT INTO periodo (tipo, fecha_inicio, fecha_fin, periodicidad_pago, clave_tipo_nomina) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $tipoPeriodo, $fechaInicio, $fechaFinal, $PeriodicidadPago, $clave_tipo_nomina);
+
+    if ($stmt->execute()) {
+        header("Location: general.php?pestaña=nomina_servicios&success=1");
+        exit;
+    } else {
+        $error = "Error al guardar el periodo.";
+    }
+    $stmt->close();
+}

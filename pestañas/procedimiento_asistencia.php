@@ -82,8 +82,8 @@ function obtener_asistencia_trabajador($conexion, $fecha_ini, $fecha_fin, $id_tr
 
         // ENTRADA: Si checó antes o igual al inicio de turno, mostrar la hora de inicio de turno, si después, la hora real
         $entrada_mostrar = "-";
-        $entrada_real_dt = DateTime::createFromFormat('H:i', $entrada_real);
-        $hora_entrada_turno_dt = DateTime::createFromFormat('H:i', $hora_entrada_turno);
+        $entrada_real_dt = ($entrada_real !== "-") ? DateTime::createFromFormat('H:i', $entrada_real) : null;
+        $hora_entrada_turno_dt = ($hora_entrada_turno !== null) ? DateTime::createFromFormat('H:i', $hora_entrada_turno) : null;
         if ($entrada_real === "-") {
             $entrada_mostrar = "-";
         }

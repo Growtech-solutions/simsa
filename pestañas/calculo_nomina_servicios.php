@@ -1,7 +1,8 @@
 <?php
+include '../conexion_servicios.php';
 include 'procedimiento_asistencia.php';
 $sql_periodo = "SELECT * FROM periodo WHERE id = $periodo_id";
-$result_periodo = $conexion->query($sql_periodo);
+$result_periodo = $conexion_servicios->query($sql_periodo);
 $periodo = $result_periodo ? $result_periodo->fetch_assoc() : null;
 $fecha_inicio = $periodo['fecha_inicio'] ?? null;
 $fecha_fin = $periodo['fecha_fin'] ?? null;
@@ -13,7 +14,7 @@ $folio_periodo = $periodo['id'];
 
 //Datos Emisor
 $sql_perfil_fiscal = "SELECT * FROM perfil_fiscal";
-$result_perfil_fiscal = $conexion->query($sql_perfil_fiscal);
+$result_perfil_fiscal = $conexion_servicios->query($sql_perfil_fiscal);
 $emisor = $result_perfil_fiscal ? $result_perfil_fiscal->fetch_assoc() : null;
 $rfc_emisor = $emisor['rfc'];
 $razon_social_emisor = $emisor ? $emisor['razon_social'] : '';
@@ -46,7 +47,7 @@ $percepciones_exentas = 0;
 $sbc = 0;
 
 // Datos de los trabajadores
-$sql_trabajador = "SELECT * FROM trabajadores WHERE estado = 'Activo' AND contrato = '$tipo_nomina' AND fecha_ingreso <= '$fecha_fin' AND empresa = 'suministros'";
+$sql_trabajador = "SELECT * FROM trabajadores WHERE estado = 'Activo' AND contrato = '$tipo_nomina' AND fecha_ingreso <= '$fecha_fin' AND empresa = 'simsa'";
 $result_trabajadores = $conexion_transimex->query($sql_trabajador);
 
 while ($trab = $result_trabajadores->fetch_assoc()) {
@@ -62,7 +63,6 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     $sql_historial_salarios = "SELECT * FROM historial_salarios WHERE fecha_cambio <= '$fecha_fin' AND id_trabajador = $id_trabajador ORDER BY fecha_cambio DESC";
     $result_historial_salarios = $conexion_transimex->query($sql_historial_salarios);
     $sueldo_diario_base = $result_historial_salarios ? $result_historial_salarios->fetch_assoc()['valor_actual'] : 0;
-    $sueldo_complemento = $trab['complemento']/8;
     $tipo_contrato_trabajador = $trab['tipo_contrato'];
     $regimen_fiscal_trabajador = $trab['regimen_fiscal'];
     $id_turno = $trab['turno'];
@@ -192,10 +192,10 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
 
     if ($banco_horas > 9) {
         $horas_dobles = 9;
-        $horas_triples = ceil($banco_horas - 9);
+        $horas_triples = $banco_horas - 9;
     } 
     else {
-        $horas_dobles = ceil($banco_horas);
+        $horas_dobles = $banco_horas;
         if ($horas_dobles < 0) {
             $horas_dobles = 0;
         }
@@ -228,14 +228,10 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
 
     //Horas
     $valor_horas_simples = round($sueldo_hora_base * $horas_simples, 2);
-    $valor_horas_dobles = round($sueldo_hora_base * $horas_dobles * 2, 2);
-    $valor_horas_triples = round($sueldo_hora_base * $horas_triples * 3, 2);
+    $valor_horas_dobles = round($sueldo_hora_base * 48/56 * $horas_dobles * 2, 2);
+    $valor_horas_triples = round($sueldo_hora_base * 48/56 * $horas_triples * 3, 2);
 
-
-    //Valor horas complemento
-    $valor_complemento = $sueldo_complemento * ($horas_simples + $horas_dobles*2 + $horas_triples*3);
-
-    $base_bono = $valor_horas_simples + $valor_horas_dobles + $valor_horas_triples;
+    $base_bono = $valor_horas_simples ;
     $bono_asistencia = 0;
     $bono_puntualidad = 0;
     $despensa = 0;
@@ -336,6 +332,7 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     // Totales trabajador
     $sueldo_trabajador = round($valor_horas_simples + $valor_horas_dobles + $valor_horas_triples, 2);
     $otros_pagos = round($total_bonos + $valor_vacaciones, 2);
+    
     $percepcion_trabajador = ($sueldo_trabajador + $otros_pagos);
     $percepcion_trabajador = round($percepcion_trabajador, 2);
 
@@ -344,17 +341,11 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
 
     $neto_trabajador = $percepcion_trabajador - $deducciones;
 
-    $complemento= $valor_complemento-$sueldo_trabajador;
-
     if($neto_trabajador<0){
         $neto_trabajador = 0;
     }
     $isn=$percepcion_trabajador*$isn_tasa;
     $percepcion_empresa = $percepcion_trabajador + $imss_patronal + $infonavit_patronal;
-
-    if ($complemento>0){
-        $percepcion_empresa += $complemento;
-    }
 
     // Acumulados
     $total_empleados++;
@@ -421,7 +412,6 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
         'isn' => round($isn, 2),
         'csp' => round($csp, 2),
         'sar' => round($sar, 2),
-        'complemento' => round($complemento, 2),
         'imss_patronal' => round($imss_patronal, 2),
         'infonavit_patronal' => round($infonavit_patronal, 2),
         'percepcion_empresa' => round($percepcion_empresa, 2)

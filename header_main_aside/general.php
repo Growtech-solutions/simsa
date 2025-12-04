@@ -46,7 +46,7 @@ ini_set('error_log', '/var/www/simsa/php_errors.log');
     <aside class="min-w-[16rem] w-64 bg-white shadow-xl p-4 space-y-4 overflow-y-auto flex-shrink-0">
       <!-- Logo/Perfil link -->
       <a href="general.php?header_loc=<?php echo $header_loc; ?>&&pestaña=perfil" onclick="mostrarPerfil()" class="text-2xl font-bold text-blue-600 hover:underline flex items-center w-full text-left">
-        <img src="../img/icon.png" alt="Perfil" class="w-8 h-8 mr-2 rounded-full"> Simsa
+        <img src="../img/icon.png" alt="Perfil" class="w-8 h-8 mr-2 rounded-full"> Suministros
       </a>
 
       <!-- Proyectos -->
@@ -265,6 +265,74 @@ ini_set('error_log', '/var/www/simsa/php_errors.log');
           </li>
           <li>
             <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=subir_facturas" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="upload"></i>Subir facturas</a>
+          </li>
+        </ul>
+      </div>
+      <a href="general.php?header_loc=<?php echo $header_loc; ?>&&pestaña=perfil_servicios" onclick="mostrarPerfil()" class="text-2xl font-bold text-blue-600 hover:underline flex items-center w-full text-left">
+        <img src="../img/icon.png" alt="Perfil" class="w-8 h-8 mr-2 rounded-full"> Servicios
+      </a>
+      <div x-data="{ open: false }" class="relative">
+        <button @click="open = !open" class="flex items-center w-full gap-2 p-2 rounded hover:bg-blue-50 focus:outline-none">
+          <i data-lucide="folder"></i>
+          <span>Proyectos</span>
+          <i :class="open ? 'rotate-90' : ''" data-lucide="chevron-right" class="ml-auto transition-transform"></i>
+        </button>
+        <ul x-show="open" class="space-y-1 pl-6" x-cloak>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=facturasproyectosservicios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="layout-grid"></i>Proyectos</a>
+          </li>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=pedidosservicios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="file-plus"></i>Pedidos</a>
+          </li>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=avance_otservicios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="bar-chart-2"></i>Avances</a>
+          </li>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=historial_premios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="award"></i>Bonos</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Finanzas -->
+      <div x-data="{ open: false }" class="relative">
+        <button @click="open = !open" class="flex items-center w-full gap-2 p-2 rounded hover:bg-blue-50 focus:outline-none">
+          <i data-lucide="dollar-sign"></i>
+          <span>Finanzas</span>
+          <i :class="open ? 'rotate-90' : ''" data-lucide="chevron-right" class="ml-auto transition-transform"></i>
+        </button>
+        <ul x-show="open" class="space-y-1 pl-6" x-cloak>
+          <li>
+        <a href="general.php?pestaña=nomina_servicios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="wallet"></i>Nomina</a>
+          </li>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=facturasservicios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="file-text"></i>Facturas</a>
+          </li>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=alta_clienteservicios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="user-plus"></i>Clientes</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Reportes -->
+      <div x-data="{ open: false }" class="relative">
+        <button @click="open = !open" class="flex items-center w-full gap-2 p-2 rounded hover:bg-blue-50 focus:outline-none">
+          <i data-lucide="bar-chart"></i>
+          <span>Reportes</span>
+          <i :class="open ? 'rotate-90' : ''" data-lucide="chevron-right" class="ml-auto transition-transform"></i>
+        </button>
+        <ul x-show="open" class="space-y-1 pl-6" x-cloak>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=analisis_beneficioservicios&tipo=proyectos" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="list"></i>Beneficio</a>
+          </li>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=analisis_facturasservicios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="chart-network"></i>Facturas</a>
+          </li>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=analisis_comprasservicios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="folder-kanban"></i>Compras</a>
+          </li>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=facturas_mensualesservicios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="pie-chart"></i>Facturas anuales</a>
+          </li>
+          <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=beneficio_anualservicios" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="pie-chart"></i>Beneficio anual</a>
           </li>
         </ul>
       </div>

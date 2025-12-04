@@ -1,5 +1,5 @@
 <?php 
-
+include '../conexion_servicios.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -28,7 +28,7 @@ a{
           // Obtener años disponibles de la base de datos
           $anios = [];
           $sql_anios = "SELECT DISTINCT YEAR(fecha_inicio) as anio FROM periodo ORDER BY anio DESC";
-          $result_anios = $conexion->query($sql_anios);
+          $result_anios = $conexion_servicios->query($sql_anios);
           if ($result_anios) {
             while ($row = $result_anios->fetch_assoc()) {
               $anios[] = $row['anio'];
@@ -49,13 +49,13 @@ a{
     // Consulta para obtener los periodos de nómina
     $sql = "SELECT id, fecha_inicio, fecha_fin, tipo, 10000 AS neto
     FROM periodo WHERE YEAR(fecha_inicio) = $anio_actual ORDER BY fecha_inicio DESC";
-    $result = $conexion->query($sql);
+    $result = $conexion_servicios->query($sql);
 
     if ($result && $result->num_rows > 0):
         while ($periodo = $result->fetch_assoc()):
 
             $sql_timbrados = "SELECT COUNT(*) AS timbrados, SUM(total_neto) AS total_neto FROM nomina WHERE periodo_id = " . $periodo['id'] . " AND uuid IS NOT NULL";
-            $result_timbrados = $conexion->query($sql_timbrados);
+            $result_timbrados = $conexion_servicios->query($sql_timbrados);
             if ($result_timbrados) {
               $row_timbrados = $result_timbrados->fetch_assoc();
               $timbrados = $row_timbrados['timbrados'];
@@ -73,7 +73,7 @@ a{
             // Determinar el color del badge según el estado
             $badge = ($estado === 'Cerrado') ? 'success' : 'warning';
             // URL de detalle (ajusta si necesitas pasar el ID)
-            $detalle_url = 'general.php?pestaña=detalle_nomina&periodo_id=' . urlencode($periodo['id']);
+            $detalle_url = 'general.php?pestaña=detalle_nomina_servicios&periodo_id=' . urlencode($periodo['id']);
     ?>
         <div class="col-md-6 col-lg-4">
           <div class="card shadow-sm border-<?php echo $badge; ?>">
@@ -137,12 +137,12 @@ a{
                         <label for="fechaFinal" class="form-label">Fecha final</label>
                         <input type="date" class="form-control" id="fechaFinal" name="fechaFinal" required>
                     </div>
-                    <input type="hidden" name="accion" value="crear_periodo_simsa">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">❌ Cancelar</button>
                     <button type="submit" class="btn btn-success">✅ Crear</button>
                 </div>
+                <input type="hidden" name="accion" value="crear_periodo_servicios">
             </form>
         </div>
     </div>

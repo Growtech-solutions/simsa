@@ -1,7 +1,8 @@
 <?php
+include '../conexion_servicios.php';
 include 'procedimiento_asistencia.php';
 $sql_periodo = "SELECT * FROM periodo WHERE id = $periodo_id";
-$result_periodo = $conexion->query($sql_periodo);
+$result_periodo = $conexion_servicios->query($sql_periodo);
 $periodo = $result_periodo ? $result_periodo->fetch_assoc() : null;
 $fecha_inicio = $periodo['fecha_inicio'] ?? null;
 $fecha_fin = $periodo['fecha_fin'] ?? null;
@@ -13,7 +14,7 @@ $folio_periodo = $periodo['id'];
 
 //Datos Emisor
 $sql_perfil_fiscal = "SELECT * FROM perfil_fiscal";
-$result_perfil_fiscal = $conexion->query($sql_perfil_fiscal);
+$result_perfil_fiscal = $conexion_servicios->query($sql_perfil_fiscal);
 $emisor = $result_perfil_fiscal ? $result_perfil_fiscal->fetch_assoc() : null;
 $rfc_emisor = $emisor['rfc'];
 $razon_social_emisor = $emisor ? $emisor['razon_social'] : '';
@@ -41,12 +42,9 @@ $total_empleados = 0;
 $total_percepciones = 0;
 $total_deducciones = 0;
 $total_neto = 0;
-$prima_vacacional_recibida = 0;
-$percepciones_exentas = 0;
-$sbc = 0;
 
 // Datos de los trabajadores
-$sql_trabajador = "SELECT * FROM trabajadores WHERE estado = 'Activo' AND contrato = '$tipo_nomina' AND fecha_ingreso <= '$fecha_fin' AND empresa = 'suministros'";
+$sql_trabajador = "SELECT * FROM trabajadores WHERE estado = 'Activo' AND contrato = '$tipo_nomina' AND fecha_ingreso <= '$fecha_fin' and empresa='simsa'";
 $result_trabajadores = $conexion_transimex->query($sql_trabajador);
 
 while ($trab = $result_trabajadores->fetch_assoc()) {
@@ -138,17 +136,17 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
         $sbc = $sdi;
     }
     
-
-        if ($jornada_trabajador == 'Mixta') {
+    if ($empresa=="servicios"){
+        $sueldo_hora_base = ((($sueldo_diario_base/$factor_integracion)/8)*56/48);
+    }
+    else{
+        if ($jornada_trabajador == 'Mixta' || $jornada_trabajador == 'Nocturna') {
             $sueldo_hora_base = ($sueldo_diario_base/7.5);
         } 
-        else if ($jornada_trabajador == 'Nocturna') {
-            $sueldo_hora_base = ($sueldo_diario_base/7);
-        }
         else{
             $sueldo_hora_base = ($sueldo_diario_base/8);
         }
-        $sueldo_hora_base = ($sueldo_diario_base/$factor_integracion/8)*(56/48);
+    }
         
         if (isset($asistencia['estado'])) {
             switch ($asistencia['estado']) {
@@ -211,8 +209,8 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
                                  FROM vacaciones 
                                  WHERE id_trabajador = $id_trabajador
                                  AND estado = 'aprobado'
-                                 AND YEAR(fecha_inicio) = YEAR(CURDATE())
-                                 AND fecha_inicio <= '$fecha_inicio'";
+                                 AND YEAR(fecha_inicio) = YEAR(CURDATE());
+                                 AND fecha_inicio <= '$fecha_inicio";
     $resultado_vacaciones = $conexion_transimex->query($sql_vacaciones_recibidas);
     $dias_vacaciones_tomados = ($resultado_vacaciones->num_rows > 0) ? $resultado_vacaciones->fetch_assoc()['dias_tomados'] :
     $prima_vacacional_recibida = $dias_vacaciones_tomados * $sueldo_diario_base * 0.25;
@@ -230,19 +228,34 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     $valor_horas_simples = round($sueldo_hora_base * $horas_simples, 2);
     $valor_horas_dobles = round($sueldo_hora_base * $horas_dobles * 2, 2);
     $valor_horas_triples = round($sueldo_hora_base * $horas_triples * 3, 2);
-
+    $septimo_dia = ($valor_horas_simples/6);
+    if ($empresa=="servicios"){
+        $septimo_dia = 0;
+    }
+    $valor_horas_simples += $septimo_dia;
 
     //Valor horas complemento
     $valor_complemento = $sueldo_complemento * ($horas_simples + $horas_dobles*2 + $horas_triples*3);
 
     $base_bono = $valor_horas_simples + $valor_horas_dobles + $valor_horas_triples;
-    $bono_asistencia = 0;
-    $bono_puntualidad = 0;
-    $despensa = 0;
-    if ($horas_simples>= 40 && $faltas_en_semana == 0){
+
+    //Bonos 
+    if ($empresa == 'servicios'){
+        if ($asistencia_nomina == $dias_en_rango){
             $bono_asistencia = $base_bono*0.1;
             $bono_puntualidad = $base_bono*0.1;
             $despensa = 300;
+        }
+        else{
+            $bono_asistencia = 0;
+            $bono_puntualidad = 0;
+            $despensa = 0;
+        }
+    }
+    else{
+        $bono_asistencia = 0;
+            $bono_puntualidad = 0;
+            $despensa = 0;
     }
     
     $valor_bonos = $bono_asistencia + $bono_puntualidad + $despensa;
@@ -251,13 +264,13 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
 
     //Infonavit
     $sql_infonavit = "SELECT monto as monto_semanal FROM infonavit WHERE id_trabajador = $id_trabajador AND estado = 1";
-    $resultado_infonavit = $conexion_transimex->query($sql_infonavit);
+    $resultado_infonavit = $conexion->query($sql_infonavit);
     $monto_infonavit = ($resultado_infonavit->num_rows > 0) ? $resultado_infonavit->fetch_assoc()['monto_semanal'] : 0;
     $monto_infonavit = $monto_infonavit/7*$dias_en_rango;
 
     //Prestamos
     $sql_prestamos = "SELECT monto_semanal FROM prestamos WHERE id_trabajador = $id_trabajador AND fecha_final >= '$fecha_fin'";
-    $resultado_prestamos = $conexion_transimex->query($sql_prestamos);
+    $resultado_prestamos = $conexion_servicios->query($sql_prestamos);
     $monto_prestamos = ($resultado_prestamos->num_rows > 0) ? $resultado_prestamos->fetch_assoc()['monto_semanal'] : 0;
     $monto_prestamos = $monto_prestamos/7*$dias_en_rango;
 
@@ -267,7 +280,7 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
         INNER JOIN fondo_ahorro ON fondo_ahorro_trabajador.id_fondo = fondo_ahorro.id_fondo 
         WHERE fondo_ahorro_trabajador.id_trabajador = $id_trabajador 
         AND fondo_ahorro.fecha_final >= '$fecha_fin'";
-    $resultado_fondo_ahorro = $conexion_transimex->query($sql_fondo_ahorro);
+    $resultado_fondo_ahorro = $conexion_servicios->query($sql_fondo_ahorro);
     $monto_fondo_ahorro = ($resultado_fondo_ahorro && $resultado_fondo_ahorro->num_rows > 0) ? $resultado_fondo_ahorro->fetch_assoc()['monto_semanal'] : 0;
     $monto_fondo_ahorro = $monto_fondo_ahorro/7*$dias_en_rango;
 
@@ -312,8 +325,9 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     $invalidez_vida=$sbc*$asistencia_nomina*0.00625;
     $cesnatia_vejez=$sbc*$asistencia_nomina*0.01125;
     $imss=$adicional+$prestaciones_dinero+$gastos_medicos_pensionados+$invalidez_vida+$cesnatia_vejez;
+    if ($empresa=="servicios") {
         $imss = 0; // Descuento del 50% para el sector servicios
-    
+    }
 
     /*IMSS patronal*/
     $cuota_fija=$uma*$asistencia_nomina*0.204;
