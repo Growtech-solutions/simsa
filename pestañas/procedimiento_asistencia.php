@@ -211,6 +211,31 @@ function obtener_asistencia_trabajador($conexion, $fecha_ini, $fecha_fin, $id_tr
         }
 
         
+/* ============================================
+   REGLA: Si trabajó en sábado, sumar +0.5 horas
+   ============================================ */
+if ($dia_semana === 'Sábado') {
+
+    // Si tiene horas por reloj
+    if ((float)$horas_simples > 0 || (float)$horas_extra > 0) {
+        $horas_extra = number_format((float)$horas_extra + 0.5, 2);
+    }
+
+    // Si tiene horas por reporte
+    if ((float)$horas_reporte > 0) {
+
+        // primero intenta agregarlo como extra
+        if ((float)$horas_extra_reporte >= 0) {
+            $horas_extra_reporte = number_format((float)$horas_extra_reporte + 0.5, 2);
+        } else {
+            // sino, tirar a simples
+            $horas_simple_reporte = number_format((float)$horas_simple_reporte + 0.5, 2);
+        }
+
+        // Actualiza total reporte
+        $horas_reporte = number_format((float)$horas_reporte + 0.5, 2);
+    }
+}
 
         // BANCO DE HORAS ACUMULADO POR TRABAJADOR: suma progresiva día a día
         static $banco_acumulado = [];

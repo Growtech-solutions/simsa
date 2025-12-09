@@ -202,6 +202,7 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
         $horas_triples = 0;
     }
 
+    $horas_dobles = ceil($horas_dobles);
     /* Prima vacacional */
     $valor_vacaciones = $vacaciones_en_semana * ($sueldo_diario_base);
     $prima_vacacional = $valor_vacaciones * 0.25;
@@ -230,6 +231,7 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     $valor_horas_simples = round($sueldo_hora_base * $horas_simples, 2);
     $valor_horas_dobles = round($sueldo_hora_base * 48/56 * $horas_dobles * 2, 2);
     $valor_horas_triples = round($sueldo_hora_base * 48/56 * $horas_triples * 3, 2);
+    $valor_horas_triples = 0;
 
     $base_bono = $valor_horas_simples ;
     $bono_asistencia = 0;
@@ -268,20 +270,25 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     $monto_fondo_ahorro = $monto_fondo_ahorro/7*$dias_en_rango;
 
     //Percepciones Gravadas y Exentas
-    if ($sueldo_diario_base <= $salario_minimo){
-        if ($valor_horas_dobles <= ($uma*5)){
-            $percepciones_gravadas = ($valor_horas_simples + $valor_horas_triples + ($valor_vacaciones - $prima_vacacional) + $prima_vacacional_gravada + $total_bonos);
-            $percepcciones_exentas =  $valor_horas_dobles + $prima_vacacional_exenta;
+    if ($sueldo_diario_base >= $salario_minimo){
+        if ($valor_horas_dobles/2 <= ($uma*5)){
+            $dobles_exentas = $valor_horas_dobles/2;
+            $dobles_gravadas = $valor_horas_dobles/2;
         }
         else{
-            $percepciones_exentas =  $uma*5 + $prima_vacacional_exenta;
-            $percepciones_gravadas = ($valor_horas_simples + ($valor_horas_dobles - ($uma*5))) + $valor_horas_triples + ($valor_vacaciones - $prima_vacacional) + $prima_vacacional_gravada + $total_bonos;
+            $dobles_exentas = $uma*5;
+            $dobles_gravadas = $valor_horas_dobles - ($uma*5);
         }
     }
     else{
-        $percepciones_gravadas = ($valor_horas_simples + ($valor_horas_dobles / 2) + $valor_horas_triples + ($valor_vacaciones-$prima_vacacional) + $prima_vacacional_gravada + $total_bonos);
-        $percepciones_exentas = ($valor_horas_dobles / 2) + $prima_vacacional_exenta;
+        $dobles_exentas = $valor_horas_dobles;
+        $dobles_gravadas = 0;
     }
+    $dobles_exentas = round($dobles_exentas, 2);
+    $dobles_gravadas = round($dobles_gravadas, 2);
+    $valor_horas_dobles = round($dobles_exentas + $dobles_gravadas, 2);
+    $percepciones_exentas = round($dobles_exentas + $prima_vacacional_exenta, 2);
+    $percepciones_gravadas = round($valor_horas_simples + $dobles_gravadas + $valor_horas_triples + ($valor_vacaciones-$prima_vacacional) + $prima_vacacional_gravada + $total_bonos, 2);
 
     //Calculo de ISR y subsidio
     switch ($PeriodicidadPago) {
@@ -397,6 +404,8 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
         'monto_infonavit' => round($monto_infonavit, 2),
         'monto_prestamos' => round($monto_prestamos, 2),
         'monto_fondo_ahorro' => round($monto_fondo_ahorro, 2),
+        'dobles_exentas' => round($dobles_exentas, 2),
+        'dobles_gravadas' => round($dobles_gravadas, 2),
         'percepciones_gravadas' => round($percepciones_gravadas, 2),
         'percepciones_exentas' => round($percepciones_exentas, 2),
         'isr_a_cargo' => round($isr_a_cargo, 2),

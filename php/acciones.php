@@ -509,3 +509,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipoPeriodo'], $_POST
     }
     $stmt->close();
 }
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["guardar_ubicacion"])) {
+    $nombre = $_POST["nombre"];
+    $lat = $_POST["latitud"];
+    $lng = $_POST["longitud"];
+
+    $stmt = $conexion_transimex->prepare("INSERT INTO ubicaciones (nombre, latitud, longitud) VALUES (?, ?, ?)");
+    $stmt->execute([$nombre, $lat, $lng]);
+    header("Location: " . $_SERVER['HTTP_REFERER'] );
+}

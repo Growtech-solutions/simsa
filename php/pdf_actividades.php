@@ -27,17 +27,14 @@ $datos_ot = $result_ot->fetch_assoc();
 $sql = "SELECT 
             piezas.pieza AS nombre_pieza,
             encargado.actividad,
-            encargado.cantidad,
+            SUM(encargado.cantidad) AS cantidad_total,
             encargado.fecha,
-            trabajadores.nombre,
-            trabajadores.apellidos,
             precios.precio,
             precios.descripcion,
             precios.unidad,
             precios.no_item
         FROM piezas 
         RIGHT JOIN encargado ON piezas.id = encargado.id_pieza 
-        LEFT JOIN transimex.trabajadores ON encargado.id_trabajador = trabajadores.id
         LEFT JOIN precios ON encargado.actividad = precios.id
         WHERE encargado.fecha BETWEEN '$fecha_inicio' AND '$fecha_fin'";
 
@@ -48,7 +45,15 @@ if (!empty($ot)) {
     $sql .= " AND (piezas.ot LIKE '%$ot%' OR encargado.ot_tardia LIKE '%$ot%')";
 }
 
-$sql .= " ORDER BY piezas.pieza, encargado.fecha ASC";
+$sql .= " GROUP BY 
+            piezas.pieza,
+            encargado.actividad,
+            encargado.fecha,
+            precios.precio,
+            precios.descripcion,
+            precios.unidad,
+            precios.no_item
+          ORDER BY piezas.pieza, encargado.fecha ASC";
 
 $resultado = $conexion->query($sql);
 
@@ -106,7 +111,7 @@ while ($fila = $resultado->fetch_assoc()) {
             // Mostrar total acumulado de la pieza anterior
             $pdf->SetFont('Arial', 'B', 10);
             $pdf->Cell(10, 7, '', 0, 0);
-            $pdf->Cell(120, 7, 'Subtotal :', 1, 0, 'R');
+            $pdf->Cell(140, 7, 'Subtotal :', 1, 0, 'R');
             $pdf->Cell(40, 7, '$' . number_format($valor_acumulado_pieza, 2), 1, 1, 'C');
             $pdf->Ln(5);
         }
@@ -116,7 +121,7 @@ while ($fila = $resultado->fetch_assoc()) {
         $pdf->Cell(10, 7, '', 0, 0); // Margen izquierdo pequeño
         // Usar MultiCell para el nombre de la pieza, alineado a la izquierda
         $pdf->SetX(20); // Margen izquierdo pequeño (10 + 10)
-        $pdf->MultiCell(160, 6, utf8_decode($pieza), 1, 'C');
+        $pdf->MultiCell(180, 6, utf8_decode($pieza), 1, 'C');
 
         // Encabezado de la tabla alineado a la izquierda
         $pdf->SetFont('Arial', 'B', 10);
@@ -125,7 +130,8 @@ while ($fila = $resultado->fetch_assoc()) {
         $pdf->Cell(20, 7, 'Item', 1, 0, 'C');
         $pdf->Cell(60, 7, 'Actividad', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Cantidad', 1, 0, 'C');
-        $pdf->Cell(30, 7, 'Valor unitario', 1, 1, 'C');
+        $pdf->Cell(30, 7, 'Valor unitario', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'Total', 1, 1, 'C');
 
         // Reiniciar subtotal de la pieza
         $valor_acumulado_pieza = 0;
@@ -135,9 +141,10 @@ while ($fila = $resultado->fetch_assoc()) {
     $nombre_trabajador = $fila['nombre'] . ' ' . $fila['apellidos'];
     $actividad = $fila['descripcion'] ?? 'No especificado';
     $item = $fila['no_item'] ?? '0';
-    $cantidad = $fila['cantidad']. ' ' . $fila['unidad'];
     $precio = $fila['precio'] ?? 0;
-    $valor_total = $fila['cantidad'] * $precio;
+    $cantidad = $fila['cantidad_total'] . ' ' . $fila['unidad'];
+    $valor_total = $fila['cantidad_total'] * $precio;
+
 
     // Acumular valores
     $valor_acumulado_pieza += $valor_total;
@@ -165,14 +172,15 @@ while ($fila = $resultado->fetch_assoc()) {
     $pdf->SetXY($x + $ancho_actividad, $y);
 
     $pdf->Cell(20, $altura_fila, $cantidad, 1, 0, 'C');
-    $pdf->Cell(30, $altura_fila, '$' . number_format($precio, 2), 1, 1, 'C');
+    $pdf->Cell(30, $altura_fila, '$' . number_format($precio, 2), 1, 0, 'C');
+    $pdf->Cell(20, $altura_fila, '$' . number_format($precio * $cantidad, 2), 1, 1, 'C');
 }
 
 // Mostrar subtotal de la última pieza
 if ($pieza_actual !== '') {
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(10, 7, '', 0, 0);
-    $pdf->Cell(120, 7, 'Subtotal: ', 1, 0, 'R');
+    $pdf->Cell(140, 7, 'Subtotal: ', 1, 0, 'R');
     $pdf->Cell(40, 7, '$' . number_format($valor_acumulado_pieza, 2), 1, 1, 'C');
     $pdf->Ln(5);
 }
@@ -180,15 +188,15 @@ if ($pieza_actual !== '') {
 // Línea final para mostrar el total acumulado general
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(10, 7, '', 0, 0);
-$pdf->Cell(120, 7, 'Subtotal:', 1, 0, 'R');
+$pdf->Cell(140, 7, 'Subtotal:', 1, 0, 'R');
 $pdf->Cell(40, 7, '$' . number_format($valor_acumulado_total, 2), 1, 1, 'C');
 
 $pdf->Cell(10, 7, '', 0, 0);
-$pdf->Cell(120, 7, 'IVA:', 1, 0, 'R');
+$pdf->Cell(140, 7, 'IVA:', 1, 0, 'R');
 $pdf->Cell(40, 7, '$' . number_format($valor_acumulado_total*0.16, 2), 1, 1, 'C');
 
 $pdf->Cell(10, 7, '', 0, 0);
-$pdf->Cell(120, 7, 'Total:', 1, 0, 'R');
+$pdf->Cell(140, 7, 'Total:', 1, 0, 'R');
 $pdf->Cell(40, 7, '$' . number_format(($valor_acumulado_total*1.16), 2), 1, 1, 'C');
 
 // Cerrar conexión

@@ -1,120 +1,27 @@
 ﻿Trabajador: SAUL ESTRADA LOPEZ
-Error: Timbrado fallido: El certificado expiró el 18-01-2025
+Error: Timbrado fallido: Uno de los atributos numéricos en el XML tiene un dato inválido.
 XML Enviado:
 <?xml version="1.0" encoding="UTF-8"?>
-<cfdi:Comprobante Sello="" Version="4.0" Serie="A" Folio="6" Fecha="2025-12-04T08:26:12" Descuento="1017.27" NoCertificado="3030303031303030303030353036323030353933" Certificado="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" SubTotal="4406.26" Moneda="MXN" Total="3388.99" TipoDeComprobante="N" LugarExpedicion="64103" Exportacion="01" MetodoPago="PUE" xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
+<cfdi:Comprobante Sello="" Version="4.0" Serie="A" Folio="6" Fecha="2025-12-04T15:31:54" Descuento="1022.96" NoCertificado="3030303031303030303030373132323533323233" Certificado="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" SubTotal="4459.46" Moneda="MXN" Total="3436.5" TipoDeComprobante="N" LugarExpedicion="64103" Exportacion="01" MetodoPago="PUE" xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
   <cfdi:Emisor Rfc="SIM680423P4A" Nombre="SERVICIOS INDUSTRIALES DE MONTERREY" RegimenFiscal="601"/>
-  <cfdi:Receptor Rfc="EALS700830" Nombre="SAUL ESTRADA LOPEZ" UsoCFDI="CN01" DomicilioFiscalReceptor="88780" RegimenFiscalReceptor="605"/>
+  <cfdi:Receptor Rfc="EALS700830LU4" Nombre="SAUL ESTRADA LOPEZ" UsoCFDI="CN01" DomicilioFiscalReceptor="88780" RegimenFiscalReceptor="605"/>
   <cfdi:Conceptos>
-    <cfdi:Concepto ClaveProdServ="84111505" ObjetoImp="01" ClaveUnidad="ACT" Descuento="1017.27" Cantidad="1" Descripcion="Pago de nómina" ValorUnitario="4406.26" Importe="4406.26"/>
+    <cfdi:Concepto ClaveProdServ="84111505" ObjetoImp="01" ClaveUnidad="ACT" Descuento="1022.96" Cantidad="1" Descripcion="Pago de nómina" ValorUnitario="4459.46" Importe="4459.46"/>
   </cfdi:Conceptos>
   <cfdi:Complemento>
-    <nomina12:Nomina Version="1.2" TipoNomina="O" FechaPago="2025-12-03" FechaInicialPago="2025-11-27" FechaFinalPago="2025-12-03" NumDiasPagados="7" TotalOtrosPagos="0.00" TotalPercepciones="4406.26" TotalDeducciones="1017.27">
+    <nomina12:Nomina Version="1.2" TipoNomina="O" FechaPago="2025-12-03" FechaInicialPago="2025-11-27" FechaFinalPago="2025-12-03" NumDiasPagados="7" TotalOtrosPagos="0.00" TotalPercepciones="4459.46" TotalDeducciones="1022.96">
       <nomina12:Emisor RegistroPatronal="D4534011108"/>
       <nomina12:Receptor Curp="EALS700830HNLSPL06" NumSeguridadSocial="43877084855" FechaInicioRelLaboral="2012-06-01" Antigüedad="P13Y6M2D" ClaveEntFed="NLE" PeriodicidadPago="02" TipoContrato="01" Sindicalizado="No" TipoJornada="01" TipoRegimen="02" NumEmpleado="8" Puesto="Oficial Especial" Departamento="Maquinados" SalarioBaseCotApor="475.89" RiesgoPuesto="1" SalarioDiarioIntegrado="475.89"/>
-      <nomina12:Percepciones TotalSueldos="4406.26" TotalGravado="4140.31" TotalExento="265.95">
+      <nomina12:Percepciones TotalSueldos="4459.46" TotalGravado="4166.91" TotalExento="292.55">
         <nomina12:Percepcion TipoPercepcion="050" Clave="BONO" Concepto="Bonos" ImporteGravado="895.73" ImporteExento="0.00"/>
         <nomina12:Percepcion TipoPercepcion="001" Clave="001" Concepto="Sueldos, Salarios" ImporteGravado="2978.63" ImporteExento="0.00"/>
-        <nomina12:Percepcion TipoPercepcion="019" Clave="HE2" Concepto="Horas extra dobles" ImporteGravado="265.95" ImporteExento="265.95">
-          <nomina12:HorasExtra Dias="1" TipoHoras="01" HorasExtra="5" ImportePagado="531.9"/>
+        <nomina12:Percepcion TipoPercepcion="019" Clave="HE2" Concepto="Horas extra dobles" ImporteGravado="292.55" ImporteExento="292.55">
+          <nomina12:HorasExtra Dias="2" TipoHoras="01" HorasExtra="5.5" ImportePagado="585.10"/>
         </nomina12:Percepcion>
       </nomina12:Percepciones>
-      <nomina12:Deducciones TotalOtrasDeducciones="517" TotalImpuestosRetenidos="500.27">
-        <nomina12:Deduccion TipoDeduccion="002" Clave="ISR" Concepto="ISR Retenido" Importe="500.27"/>
+      <nomina12:Deducciones TotalOtrasDeducciones="517" TotalImpuestosRetenidos="505.96">
+        <nomina12:Deduccion TipoDeduccion="002" Clave="ISR" Concepto="ISR Retenido" Importe="505.96"/>
         <nomina12:Deduccion TipoDeduccion="004" Clave="INF" Concepto="Crédito INFONAVIT" Importe="517"/>
-      </nomina12:Deducciones>
-      <nomina12:OtrosPagos>
-        <nomina12:OtroPago TipoOtroPago="002" Clave="SUB" Concepto="Subsidio para el empleo" Importe="0.00">
-          <nomina12:SubsidioAlEmpleo SubsidioCausado="0.00"/>
-        </nomina12:OtroPago>
-      </nomina12:OtrosPagos>
-    </nomina12:Nomina>
-  </cfdi:Complemento>
-</cfdi:Comprobante>
-
---------------------------
-Trabajador: RAFAEL GARZA CASTILLO
-Error: Timbrado fallido: El certificado expiró el 18-01-2025
-XML Enviado:
-<?xml version="1.0" encoding="UTF-8"?>
-<cfdi:Comprobante Sello="" Version="4.0" Serie="A" Folio="6" Fecha="2025-12-04T08:26:13" Descuento="218.03" NoCertificado="3030303031303030303030353036323030353933" Certificado="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" SubTotal="2638.8" Moneda="MXN" Total="2420.77" TipoDeComprobante="N" LugarExpedicion="64103" Exportacion="01" MetodoPago="PUE" xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
-  <cfdi:Emisor Rfc="SIM680423P4A" Nombre="SERVICIOS INDUSTRIALES DE MONTERREY" RegimenFiscal="601"/>
-  <cfdi:Receptor Rfc="GACR0202086G8" Nombre="RAFAEL GARZA CASTILLO" UsoCFDI="CN01" DomicilioFiscalReceptor="64860" RegimenFiscalReceptor="605"/>
-  <cfdi:Conceptos>
-    <cfdi:Concepto ClaveProdServ="84111505" ObjetoImp="01" ClaveUnidad="ACT" Descuento="218.03" Cantidad="1" Descripcion="Pago de nómina" ValorUnitario="2638.80" Importe="2638.80"/>
-  </cfdi:Conceptos>
-  <cfdi:Complemento>
-    <nomina12:Nomina Version="1.2" TipoNomina="O" FechaPago="2025-12-03" FechaInicialPago="2025-11-27" FechaFinalPago="2025-12-03" NumDiasPagados="7" TotalOtrosPagos="0.00" TotalPercepciones="2638.8" TotalDeducciones="218.03">
-      <nomina12:Emisor RegistroPatronal="D4534011108"/>
-      <nomina12:Receptor Curp="GACR020208HNLRSFFA6" NumSeguridadSocial="10220279722" FechaInicioRelLaboral="2024-03-21" Antigüedad="P1Y8M12D" ClaveEntFed="NLE" PeriodicidadPago="02" TipoContrato="01" Sindicalizado="No" TipoJornada="01" TipoRegimen="02" NumEmpleado="11" Puesto="Desarrollo" Departamento="Administracion" SalarioBaseCotApor="307.37" RiesgoPuesto="1" SalarioDiarioIntegrado="307.37"/>
-      <nomina12:Percepciones TotalSueldos="2638.80" TotalGravado="2638.8" TotalExento="0">
-        <nomina12:Percepcion TipoPercepcion="050" Clave="BONO" Concepto="Bonos" ImporteGravado="689.8" ImporteExento="0.00"/>
-        <nomina12:Percepcion TipoPercepcion="001" Clave="001" Concepto="Sueldos, Salarios" ImporteGravado="1949" ImporteExento="0.00"/>
-      </nomina12:Percepciones>
-      <nomina12:Deducciones TotalOtrasDeducciones="0" TotalImpuestosRetenidos="218.03">
-        <nomina12:Deduccion TipoDeduccion="002" Clave="ISR" Concepto="ISR Retenido" Importe="218.03"/>
-      </nomina12:Deducciones>
-      <nomina12:OtrosPagos>
-        <nomina12:OtroPago TipoOtroPago="002" Clave="SUB" Concepto="Subsidio para el empleo" Importe="0.00">
-          <nomina12:SubsidioAlEmpleo SubsidioCausado="0.00"/>
-        </nomina12:OtroPago>
-      </nomina12:OtrosPagos>
-    </nomina12:Nomina>
-  </cfdi:Complemento>
-</cfdi:Comprobante>
-
---------------------------
-Trabajador: ANGELICA KARINA GARCIA CARDONA
-Error: Timbrado fallido: El certificado expiró el 18-01-2025
-XML Enviado:
-<?xml version="1.0" encoding="UTF-8"?>
-<cfdi:Comprobante Sello="" Version="4.0" Serie="A" Folio="6" Fecha="2025-12-04T08:26:13" Descuento="351.55" NoCertificado="3030303031303030303030353036323030353933" Certificado="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" SubTotal="3420.49" Moneda="MXN" Total="3068.94" TipoDeComprobante="N" LugarExpedicion="64103" Exportacion="01" MetodoPago="PUE" xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
-  <cfdi:Emisor Rfc="SIM680423P4A" Nombre="SERVICIOS INDUSTRIALES DE MONTERREY" RegimenFiscal="601"/>
-  <cfdi:Receptor Rfc="GACA890629" Nombre="ANGELICA KARINA GARCIA CARDONA" UsoCFDI="CN01" DomicilioFiscalReceptor="67182" RegimenFiscalReceptor="605"/>
-  <cfdi:Conceptos>
-    <cfdi:Concepto ClaveProdServ="84111505" ObjetoImp="01" ClaveUnidad="ACT" Descuento="351.55" Cantidad="1" Descripcion="Pago de nómina" ValorUnitario="3420.49" Importe="3420.49"/>
-  </cfdi:Conceptos>
-  <cfdi:Complemento>
-    <nomina12:Nomina Version="1.2" TipoNomina="O" FechaPago="2025-12-03" FechaInicialPago="2025-11-27" FechaFinalPago="2025-12-03" NumDiasPagados="7" TotalOtrosPagos="0.00" TotalPercepciones="3420.49" TotalDeducciones="351.55">
-      <nomina12:Emisor RegistroPatronal="D4534011108"/>
-      <nomina12:Receptor Curp="GACA890629MNLRRN00" NumSeguridadSocial="43088950894" FechaInicioRelLaboral="2013-11-15" Antigüedad="P12Y18D" ClaveEntFed="NLE" PeriodicidadPago="02" TipoContrato="01" Sindicalizado="No" TipoJornada="01" TipoRegimen="02" NumEmpleado="2338" Puesto="Recursos Humanos" Departamento="Administracion" SalarioBaseCotApor="415.46" RiesgoPuesto="1" SalarioDiarioIntegrado="415.46"/>
-      <nomina12:Percepciones TotalSueldos="3420.49" TotalGravado="3420.49" TotalExento="0">
-        <nomina12:Percepcion TipoPercepcion="050" Clave="BONO" Concepto="Bonos" ImporteGravado="820.08" ImporteExento="0.00"/>
-        <nomina12:Percepcion TipoPercepcion="001" Clave="001" Concepto="Sueldos, Salarios" ImporteGravado="2600.41" ImporteExento="0.00"/>
-      </nomina12:Percepciones>
-      <nomina12:Deducciones TotalOtrasDeducciones="0" TotalImpuestosRetenidos="351.55">
-        <nomina12:Deduccion TipoDeduccion="002" Clave="ISR" Concepto="ISR Retenido" Importe="351.55"/>
-      </nomina12:Deducciones>
-      <nomina12:OtrosPagos>
-        <nomina12:OtroPago TipoOtroPago="002" Clave="SUB" Concepto="Subsidio para el empleo" Importe="0.00">
-          <nomina12:SubsidioAlEmpleo SubsidioCausado="0.00"/>
-        </nomina12:OtroPago>
-      </nomina12:OtrosPagos>
-    </nomina12:Nomina>
-  </cfdi:Complemento>
-</cfdi:Comprobante>
-
---------------------------
-Trabajador: GERARDO RUIZ SEGOVIANO
-Error: Timbrado fallido: El certificado expiró el 18-01-2025
-XML Enviado:
-<?xml version="1.0" encoding="UTF-8"?>
-<cfdi:Comprobante Sello="" Version="4.0" Serie="A" Folio="6" Fecha="2025-12-04T08:26:13" Descuento="245.33" NoCertificado="3030303031303030303030353036323030353933" Certificado="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" SubTotal="2809.4" Moneda="MXN" Total="2564.07" TipoDeComprobante="N" LugarExpedicion="64103" Exportacion="01" MetodoPago="PUE" xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
-  <cfdi:Emisor Rfc="SIM680423P4A" Nombre="SERVICIOS INDUSTRIALES DE MONTERREY" RegimenFiscal="601"/>
-  <cfdi:Receptor Rfc="RUSG590606K18" Nombre="GERARDO RUIZ SEGOVIANO" UsoCFDI="CN01" DomicilioFiscalReceptor="67250" RegimenFiscalReceptor="605"/>
-  <cfdi:Conceptos>
-    <cfdi:Concepto ClaveProdServ="84111505" ObjetoImp="01" ClaveUnidad="ACT" Descuento="245.33" Cantidad="1" Descripcion="Pago de nómina" ValorUnitario="2809.40" Importe="2809.40"/>
-  </cfdi:Conceptos>
-  <cfdi:Complemento>
-    <nomina12:Nomina Version="1.2" TipoNomina="O" FechaPago="2025-12-03" FechaInicialPago="2025-11-27" FechaFinalPago="2025-12-03" NumDiasPagados="7" TotalOtrosPagos="0.00" TotalPercepciones="2809.4" TotalDeducciones="245.33">
-      <nomina12:Emisor RegistroPatronal="D4534011108"/>
-      <nomina12:Receptor Curp="RUSG590606HNLZGR07" NumSeguridadSocial="43775958473" FechaInicioRelLaboral="2023-08-24" Antigüedad="P2Y3M9D" ClaveEntFed="NLE" PeriodicidadPago="02" TipoContrato="01" Sindicalizado="No" TipoJornada="99" TipoRegimen="02" NumEmpleado="2357" Puesto="Ayudante" Departamento="Proyectos" SalarioBaseCotApor="330.65" RiesgoPuesto="1" SalarioDiarioIntegrado="330.65"/>
-      <nomina12:Percepciones TotalSueldos="2809.40" TotalGravado="2809.4" TotalExento="0">
-        <nomina12:Percepcion TipoPercepcion="050" Clave="BONO" Concepto="Bonos" ImporteGravado="718.23" ImporteExento="0.00"/>
-        <nomina12:Percepcion TipoPercepcion="001" Clave="001" Concepto="Sueldos, Salarios" ImporteGravado="2091.17" ImporteExento="0.00"/>
-      </nomina12:Percepciones>
-      <nomina12:Deducciones TotalOtrasDeducciones="0" TotalImpuestosRetenidos="245.33">
-        <nomina12:Deduccion TipoDeduccion="002" Clave="ISR" Concepto="ISR Retenido" Importe="245.33"/>
       </nomina12:Deducciones>
       <nomina12:OtrosPagos>
         <nomina12:OtroPago TipoOtroPago="002" Clave="SUB" Concepto="Subsidio para el empleo" Importe="0.00">

@@ -69,7 +69,7 @@ foreach ($trabajadores_nomina as $t) {
     if ($stmt_check->num_rows === 0) {
         // Solo ejecutar el timbrado si no existe registro previo
     $totalSueldos =  $t['percepciones_gravadas'] + $t['percepciones_exentas'];
-    $totalSueldos = number_format($totalSueldos, 2, '.', '');
+    $totalSueldos = round($totalSueldos, 2);
 
 
     // Crear el comprobante CFDI 4.0
@@ -224,14 +224,20 @@ foreach ($trabajadores_nomina as $t) {
         $percepcionHE->setAttribute("TipoPercepcion", "019");
         $percepcionHE->setAttribute("Clave", "HE2");
         $percepcionHE->setAttribute("Concepto", "Horas extra dobles");
-        $percepcionHE->setAttribute("ImporteGravado", number_format($t['valor_horas_dobles']/2, 2, '.', ''));
-        $percepcionHE->setAttribute("ImporteExento", number_format($t['valor_horas_dobles']/2, 2, '.', ''));
+        $percepcionHE->setAttribute("ImporteGravado", number_format($t['dobles_gravadas'], 2, '.', ''));
+        $percepcionHE->setAttribute("ImporteExento", number_format($t['dobles_exentas'], 2, '.', ''));
 
         $horasExtra = $xml->createElement("nomina12:HorasExtra");
-        $horasExtra->setAttribute("Dias", "1");
+        if ($t['horas_dobles']>3){
+            $dias= ceil($t['horas_dobles']/3);
+        }
+        else{
+            $dias=1;
+        }
+        $horasExtra->setAttribute("Dias", $dias);
         $horasExtra->setAttribute("TipoHoras", "01"); 
-        $horasExtra->setAttribute("HorasExtra", $t['horas_dobles']);
-        $horasExtra->setAttribute("ImportePagado", $t['valor_horas_dobles']);
+        $horasExtra->setAttribute("HorasExtra", ceil($t['horas_dobles']));
+        $horasExtra->setAttribute("ImportePagado", number_format($t['dobles_exentas'] + $t['dobles_gravadas'], 2, '.', ''));
         $percepcionHE->appendChild($horasExtra);
 
         $percepciones->appendChild($percepcionHE);
@@ -380,7 +386,7 @@ foreach ($trabajadores_nomina as $t) {
         "certBase64"  => $cert_base64,
         "keyBase64"   => $key_base64,
         "keyPass"     => $password_key,
-        "prueba"      => "true",
+        "prueba"      => "false",
         "opciones"    => ["CALCULAR_SELLO"]
     ];
 

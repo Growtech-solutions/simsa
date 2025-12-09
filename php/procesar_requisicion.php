@@ -105,7 +105,7 @@ try {
     $mail->Host = 'smtp.gmail.com'; // Servidor SMTP
     $mail->SMTPAuth = true;
     $mail->Username = 'rafael@growtech-solutions.com.mx'; // Tu correo de envío
-    $mail->Password = 'qlld nvlm amig hgab'; // Tu contraseña o token de aplicación
+    $mail->Password = 'xyrz wbfe ahhc dgwl'; // Tu contraseña o token de aplicación
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port = 465;
 

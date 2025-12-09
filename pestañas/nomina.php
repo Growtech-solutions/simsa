@@ -65,7 +65,7 @@ a{
               $neto_timbrados = 0;
             }
 
-          $sql_cont_trab = "SELECT COUNT(*) AS total_trabajadores FROM trabajadores WHERE fecha_ingreso <= '" . $periodo['fecha_fin'] . "' AND contrato = '" . $periodo['tipo'] . "' AND empresa = 'simsa'";
+          $sql_cont_trab = "SELECT COUNT(*) AS total_trabajadores FROM trabajadores WHERE fecha_ingreso <= '" . $periodo['fecha_fin'] . "' AND contrato = '" . $periodo['tipo'] . "' AND empresa = 'simsa' and estado = 'Activo';";
           $result_cont_trab = $conexion_transimex->query($sql_cont_trab);
           $total_trabajadores = $result_cont_trab ? $result_cont_trab->fetch_assoc()['total_trabajadores'] : 0;
             // Determinar el estado del periodo
