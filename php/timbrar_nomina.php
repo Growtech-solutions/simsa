@@ -3,14 +3,15 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-include '../conexion_servicios.php';
 include '../conexion_transimex.php';
+include '../conexion.php';
 $conexion_transimex = new mysqli($host_transimex, $usuario_transimex, $contrasena_transimex, $base_de_datos_transimex);
+$conexion = new mysqli($host, $usuario, $contrasena, $base_de_datos);
 
-if ($conexion_servicios->connect_error) exit("❌ Conexión fallida: " . $conexion_servicios->connect_error);
 
+if ($conexion_transimex->connect_error) exit("❌ Conexión fallida: " . $conexion_transimex->connect_error); 
 $periodo_id = $_GET['id_periodo'];
-$stmt = $conexion_servicios->prepare("SELECT * FROM periodo WHERE id = ?");
+$stmt = $conexion->prepare("SELECT * FROM periodo WHERE id = ?");
 $stmt->bind_param("s", $periodo_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -22,7 +23,7 @@ if (!$periodo) {
     die("Periodo no encontrado");
 }
 
-include '../pestañas/calculo_nomina_servicios.php';
+include '../pestañas/calculo_nomina.php';
 
 function obtenerNumeroSerieCertificado($ruta_certificado) {
     $cer_der = file_get_contents($ruta_certificado);
@@ -59,7 +60,7 @@ foreach ($trabajadores_nomina as $t) {
     else{
     // Verificar si ya existe un registro de nómina para este trabajador y periodo
     $sql_check = "SELECT 1 FROM nomina WHERE periodo_id = ? AND trabajador_id = ? LIMIT 1";
-    $stmt_check = $conexion_servicios->prepare($sql_check);
+    $stmt_check = $conexion->prepare($sql_check);
     $stmt_check->bind_param("ii", $periodo_id, $t['id']);
     $stmt_check->execute();
     $stmt_check->store_result();
@@ -386,7 +387,7 @@ foreach ($trabajadores_nomina as $t) {
         "certBase64"  => $cert_base64,
         "keyBase64"   => $key_base64,
         "keyPass"     => $password_key,
-        "prueba"      => "false",
+        "prueba"      => "true",
         "opciones"    => ["CALCULAR_SELLO"]
     ];
 
@@ -485,7 +486,7 @@ foreach ($trabajadores_nomina as $t) {
                         complemento
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                    $stmt = $conexion_servicios->prepare($sql_nomina);
+                    $stmt = $conexion->prepare($sql_nomina);
                     $stmt->bind_param(
                         "isisssdddddddddddddddddddddddddd",
                         $periodo_id,

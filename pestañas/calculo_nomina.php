@@ -129,6 +129,19 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     /* SDI con factor de integración */
     $dias_aguinaldo = 15;
     $factor_integracion = (365 + $dias_aguinaldo + ($total_vacaciones * 0.25)) / 365;
+    $factor_integracion = match (true) {
+    $antiguedad < 2  => 1.0493,
+    $antiguedad < 3  => 1.050685,
+    $antiguedad < 4  => 1.052055,
+    $antiguedad < 5  => 1.053425,
+    $antiguedad < 6  => 1.054795,
+    $antiguedad < 10 => 1.056164,
+    $antiguedad < 15 => 1.057534,
+    $antiguedad < 20 => 1.058904,
+    $antiguedad < 25 => 1.060274,
+    default          => 1.061644,
+};
+
     $sdi = $sueldo_diario_base * $factor_integracion;
     $limite_sbc = 25*$uma;
     if ($sbc > $limite_sbc){
@@ -201,7 +214,7 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
         $horas_triples = 0;
     }
 
-    $horas_dobles = ceil($horas_dobles);
+    $horas_dobles = $horas_dobles;
     /* Prima vacacional */
     $valor_vacaciones = $vacaciones_en_semana * ($sueldo_diario_base);
     $prima_vacacional = $valor_vacaciones * 0.25;
@@ -342,7 +355,16 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     $percepcion_trabajador = ($sueldo_trabajador + $otros_pagos);
     $percepcion_trabajador = round($percepcion_trabajador, 2);
 
-    $deducciones = $monto_prestamos + $monto_infonavit + $isr_retencion + $imss + $monto_fondo_ahorro;
+    //pension alimenticia
+    $sql_pension_alim = "SELECT * FROM pension_aliment WHERE id_trabajador = $id_trabajador AND Estado = 'Activo'";
+    $resultado_pension_alim = $conexion_transimex->query($sql_pension_alim);
+    if ($resultado_pension_alim->num_rows > 0) {
+        $monto_pension_alim = ($percepcion_trabajador-($monto_infonavit + $isr_retencion))*.20;
+    } else {
+        $monto_pension_alim = 0;
+    }
+
+    $deducciones = $monto_prestamos + $monto_infonavit + $isr_retencion + $imss + $monto_fondo_ahorro + $monto_pension_alim;
     $deducciones = round($deducciones, 2);
 
     $neto_trabajador = $percepcion_trabajador - $deducciones;
@@ -386,7 +408,7 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
         'dias_descanso_en_semana' => $dias_descanso_en_semana,
         'total_horas' => round($total_horas, 2),
         'horas_simples' => round($horas_simples, 2),
-        'horas_dobles' => round($horas_dobles, 2),
+        'horas_dobles' => ceil($horas_dobles),
         'horas_triples' => round($horas_triples, 2),
         'banco_horas' => round($banco_horas, 2),
         'total_bonos_asistencias' => round($total_bonos_asistencias, 2),
@@ -408,6 +430,7 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
         'percepciones_gravadas' => round($percepciones_gravadas, 2),
         'percepciones_exentas' => round($percepciones_exentas, 2),
         'isr_a_cargo' => round($isr_a_cargo, 2),
+        'monto_pension_alim' => round($monto_pension_alim, 2),
         'subsidio' => round($subsidio, 2),
         'isr_retencion' => round($isr_retencion, 2),
         'imss' => round($imss, 2),

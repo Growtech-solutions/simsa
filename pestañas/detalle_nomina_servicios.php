@@ -98,10 +98,10 @@ if (file_exists($errores_file) && isset($_GET['timbrado']) && $_GET['timbrado'] 
         </thead>
         <tbody>
           <?php foreach ($trabajadores_nomina as $trabajador): ?>
-            <?php if ($trabajador['doble_reporte'] > 0): ?>
-              <tr class="table-warning" title="Este empleado tiene doble reporte en el periodo.">
+            <?php if ($trabajador['doble_reporte'] > 0 || $trabajador['percepcion_trabajador']<=0): ?>
+              <tr class="table-warning" title="Este empleado tiene doble reporte o percepciones menores o iguales a cero en el periodo.">
               <td colspan="7" class="text-center text-danger fw-bold">
-                <?php echo htmlspecialchars($trabajador['nombre']); ?> tiene doble reporte en el periodo. Por favor revisa los registros antes de timbrar.
+                <?php echo htmlspecialchars($trabajador['nombre']); ?> tiene doble reporte o percepciones menores o iguales a cero en el periodo. Por favor revisa los registros antes de timbrar.
               </td>
               </tr>
             <?php else: ?>

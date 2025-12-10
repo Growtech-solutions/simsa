@@ -129,6 +129,9 @@ ini_set('error_log', '/var/www/simsa/php_errors.log');
         <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=historial_vacaciones" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="sun"></i>Vacaciones</a>
           </li>
           <li>
+        <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=alta_pension_alim" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="file-minus"></i>Pensión alimenticia</a>
+          </li>
+          <li>
         <a href="general.php?header_loc=<?php echo $header_loc; ?>&pestaña=historial_incapacidad" class="flex items-center gap-2 p-2 rounded hover:bg-blue-50 w-full text-left"><i data-lucide="heart-pulse"></i>Incapacidades</a>
           </li>
           <li>

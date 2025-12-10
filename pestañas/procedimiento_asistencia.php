@@ -293,6 +293,9 @@ if ($dia_semana === 'Sábado') {
             $horas_reporte = 0;
         }
         */
+        if ($hora_entrada_turno === null && $hora_salida_turno === null) {
+            $estado = 'D';
+        } 
         if ($vac === "&#10003;") {
             $estado = 'V';
         } 
@@ -302,13 +305,9 @@ if ($dia_semana === 'Sábado') {
         if ($sus === "&#10003;") {
             $estado = 'S';
         } 
-        if ($hora_entrada_turno === null && $hora_salida_turno === null) {
-            $estado = 'D';
-        } 
 
         // Incidencias: vacaciones, incapacidad, suspensión, falta
         $incidencias = 0;
-        if ($hora_entrada_turno === null) $incidencias++;
         if ($vac === "&#10003;") $incidencias++;
         if ($inc === "&#10003;") $incidencias++;
         if ($sus === "&#10003;") $incidencias++;

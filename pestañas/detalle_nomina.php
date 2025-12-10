@@ -23,9 +23,14 @@ $periodo = $result_periodo ? $result_periodo->fetch_assoc() : null;
 
 $errores_dir = "/documentos/errores_nomina/$periodo_id/errores_nomina_$periodo_id.txt";
 isset ($_GET['timbrado']) or $_GET['timbrado'] = '0';
-if (file_exists($errores_dir) && $_GET['timbrado'] === '1') {
+$errores_dir = "/var/www/simsa/documentos/errores_nomina/$periodo_id/";
+$errores_file = $errores_dir . "errores_nomina_$periodo_id.txt";
+
+if (file_exists($errores_file) && isset($_GET['timbrado']) && $_GET['timbrado'] === '1') {
+
     $archivo_url = "/documentos/errores_nomina/"
-                   . intval($periodo_id) . "/errores_nomina_" . intval($periodo_id) . ".txt";
+                   . intval($periodo_id)
+                   . "/errores_nomina_" . intval($periodo_id) . ".txt";
 
     echo '<div class="alert alert-danger" role="alert">
             <h4 class="alert-heading">Errores al timbrar la nómina</h4>
@@ -38,6 +43,7 @@ if (file_exists($errores_dir) && $_GET['timbrado'] === '1') {
             </p>
           </div>';
 }
+
 ?>
 
 <body class="bg-light">
@@ -92,10 +98,10 @@ if (file_exists($errores_dir) && $_GET['timbrado'] === '1') {
         </thead>
         <tbody>
           <?php foreach ($trabajadores_nomina as $trabajador): ?>
-            <?php if ($trabajador['doble_reporte'] > 0): ?>
-              <tr class="table-warning" title="Este empleado tiene doble reporte en el periodo.">
+            <?php if ($trabajador['doble_reporte'] > 0 || $trabajador['percepcion_trabajador']<=0): ?>
+              <tr class="table-warning" title="Este empleado tiene doble reporte o percepciones menores o iguales a cero en el periodo.">
               <td colspan="7" class="text-center text-danger fw-bold">
-                <?php echo htmlspecialchars($trabajador['nombre']); ?> tiene doble reporte en el periodo. Por favor revisa los registros antes de timbrar.
+                <?php echo htmlspecialchars($trabajador['nombre']); ?> tiene doble reporte o percepciones menores o iguales a cero en el periodo. Por favor revisa los registros antes de timbrar.
               </td>
               </tr>
             <?php else: ?>
@@ -145,6 +151,7 @@ if (file_exists($errores_dir) && $_GET['timbrado'] === '1') {
                       data-imss="'.floatval($trabajador['imss'] ?? 0).'"
                       data-infonavit="'.floatval($trabajador['monto_infonavit'] ?? 0).'"
                       data-prestamos="'.floatval($trabajador['monto_prestamos'] ?? 0).'"
+                      data-pension-alimenticia="'.floatval($trabajador['monto_pension_alim'] ?? 0).'"
                       data-fondo-ahorro="'.floatval($trabajador['monto_fondo_ahorro'] ?? 0).'"
                       data-neto="'.floatval($trabajador['neto'] ?? 0).'"
                     >
@@ -216,6 +223,7 @@ if (file_exists($errores_dir) && $_GET['timbrado'] === '1') {
         addRow('IMSS', btn.getAttribute('data-imss'), true, true);
         addRow('Infonavit', btn.getAttribute('data-infonavit'), true, true);
         addRow('Prestamo', btn.getAttribute('data-prestamos'), true, true);
+        addRow('Pensión alimenticia', btn.getAttribute('data-pension-alimenticia'), true, true);
         addRow('Fondo ahorro', btn.getAttribute('data-fondo-ahorro'), true, true);
 
         tbody.innerHTML = rows;
