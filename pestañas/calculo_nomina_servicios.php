@@ -53,7 +53,12 @@ $result_trabajadores = $conexion_transimex->query($sql_trabajador);
 while ($trab = $result_trabajadores->fetch_assoc()) {
     $id_trabajador = $trab['id'];
     $nombre_trabajador = $trab['nombre'] . ' ' . $trab['apellidos'];
-    $nombre_trabajador = strtoupper(iconv('UTF-8', 'ASCII//TRANSLIT', $nombre_trabajador));
+     $nombre_trabajador = mb_convert_case($nombre_trabajador, MB_CASE_UPPER, 'UTF-8');
+    $nombre_trabajador = preg_replace('/[áàäâ]/ui', 'A', $nombre_trabajador);
+    $nombre_trabajador = preg_replace('/[éèëê]/ui', 'E', $nombre_trabajador);
+    $nombre_trabajador = preg_replace('/[íìïî]/ui', 'I', $nombre_trabajador);
+    $nombre_trabajador = preg_replace('/[óòöô]/ui', 'O', $nombre_trabajador);
+    $nombre_trabajador = preg_replace('/[úùüû]/ui', 'U', $nombre_trabajador);
     $curp_trabajador = $trab['curp'];
     $rfc_trabajador = $trab['rfc'];
     $nss_trabajador = $trab['nss'];
@@ -237,10 +242,10 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     $bono_asistencia = 0;
     $bono_puntualidad = 0;
     $despensa = 0;
-    if ($horas_simples>= 40 && $faltas_en_semana == 0){
+    if ($horas_simples>= 44 && $faltas_en_semana == 0){
             $bono_asistencia = $base_bono*0.1;
             $bono_puntualidad = $base_bono*0.1;
-            $despensa = 300;
+            $despensa = 300*$horas_simples/48;
     }
     
     $valor_bonos = $bono_asistencia + $bono_puntualidad + $despensa;

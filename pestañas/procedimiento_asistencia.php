@@ -212,10 +212,30 @@ function obtener_asistencia_trabajador($conexion, $fecha_ini, $fecha_fin, $id_tr
 
         
 /* ============================================
-   REGLA: Si trabajó en sábado, sumar +0.5 horas
+   REGLA: Si se reporto mas de 47.5 hrs y trabajo el sabado, sumar +0.5 horas
    ============================================ */
 if ($dia_semana === 'Sábado') {
 
+$horas_reporte_total_modificador = "0";
+$f_a = $fecha_ini;
+for ($fa = clone $inicio; $fa <= $fin; $fa->modify('+1 day')) {
+    $f_a = $fa->format("Y-m-d");
+$sql_modificador = "SELECT SUM(tiempo) AS total
+                            FROM (
+                                SELECT tiempo FROM transimex.encargado 
+                                WHERE id_trabajador='$id_trabajador' AND fecha='$f_a'     
+                                UNION ALL
+                                SELECT tiempo FROM simsa.encargado
+                                WHERE id_trabajador='$id_trabajador' AND fecha='$f_a'
+                            ) AS t"
+;
+    $q_modificador = $conexion->query($sql_modificador);
+    $horas_reporte_dia = ($q_modificador && $q_modificador->num_rows > 0) ? $q_modificador->fetch_assoc()['total'] : "0";
+    $horas_reporte_total_modificador += (float)$horas_reporte_dia;
+}
+
+
+    if ((float)$horas_reporte_total_modificador >= 47.5) {
     // Si tiene horas por reloj
     if ((float)$horas_simples > 0 || (float)$horas_extra > 0) {
         $horas_extra = number_format((float)$horas_extra + 0.5, 2);
@@ -235,6 +255,7 @@ if ($dia_semana === 'Sábado') {
         // Actualiza total reporte
         $horas_reporte = number_format((float)$horas_reporte + 0.5, 2);
     }
+}
 }
 
         // BANCO DE HORAS ACUMULADO POR TRABAJADOR: suma progresiva día a día
@@ -380,6 +401,7 @@ if ($dia_semana === 'Sábado') {
             }
         }
         $horas_dia_acumulado = number_format($horas_dia_acumulado, 2);
+
 
         $resultados[] = [
             'fecha' => $f,

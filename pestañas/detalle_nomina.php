@@ -118,8 +118,8 @@ if (file_exists($errores_file) && isset($_GET['timbrado']) && $_GET['timbrado'] 
               if ($result_nomina && $result_nomina->num_rows > 0) {
                 echo '<td><span class="badge bg-success">Timbrado</span></td>
                   <td>
-                    <a href="/php/generar_pdf_nomina.php?trabajador_id='.$trabajador_id.'&periodo='.$periodo_id.'" class="btn btn-sm btn-secondary" target="_blank">📄 PDF</a>
-                    <a href="/php/generar_xml_nomina.php?trabajador_id='.$trabajador_id.'&periodo='.$periodo_id.'" class="btn btn-sm btn-secondary" >💾 XML</a>
+                    <a href="/php/generar_pdf_nomina_sumi.php?trabajador_id='.$trabajador_id.'&periodo='.$periodo_id.'" class="btn btn-sm btn-secondary" target="_blank">📄 PDF</a>
+                    <a href="/php/generar_xml_nomina_sumi.php?trabajador_id='.$trabajador_id.'&periodo='.$periodo_id.'" class="btn btn-sm btn-secondary" >💾 XML</a>
                   </td>';
               } else {
                 // Botón con data-* para pasar datos al modal

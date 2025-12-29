@@ -267,8 +267,10 @@ foreach ($trabajadores_nomina as $t) {
     // ==========================
     // DEDUCCIONES
     // ==========================
+    
     $otrasDeducciones = $t['imss'] + $t['monto_infonavit'] + $t['monto_prestamos'] + $t['monto_fondo_ahorro'];
     $totalDeducciones = $t['deducciones'];
+    if ($totalDeducciones > 0) {
 
     $deducciones = $xml->createElement("nomina12:Deducciones");
     $deducciones->setAttribute("TotalOtrasDeducciones", $otrasDeducciones);
@@ -323,7 +325,7 @@ foreach ($trabajadores_nomina as $t) {
     }
 
     $nomina->appendChild($deducciones);
-
+    }
     // ==========================
     // OTROS PAGOS (SUBSIDIO)
     // ==========================

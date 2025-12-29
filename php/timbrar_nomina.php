@@ -268,9 +268,9 @@ foreach ($trabajadores_nomina as $t) {
     // ==========================
     // DEDUCCIONES
     // ==========================
-    $otrasDeducciones = $t['imss'] + $t['monto_infonavit'] + $t['monto_prestamos'] + $t['monto_fondo_ahorro'];
+    $otrasDeducciones = $t['imss'] + $t['monto_infonavit'] + $t['monto_prestamos'] + $t['monto_fondo_ahorro'] + $t['monto_pension_alim'];
     $totalDeducciones = $t['deducciones'];
-
+    if ($totalDeducciones > 0) {
     $deducciones = $xml->createElement("nomina12:Deducciones");
     $deducciones->setAttribute("TotalOtrasDeducciones", $otrasDeducciones);
     $deducciones->setAttribute("TotalImpuestosRetenidos", $t['isr_retencion']);
@@ -323,8 +323,17 @@ foreach ($trabajadores_nomina as $t) {
         $deducciones->appendChild($deduccionPRE);
     }
 
-    $nomina->appendChild($deducciones);
+    if ($t['monto_pension_alim'] > 0) {
+        $deduccionPEN = $xml->createElement("nomina12:Deduccion");
+        $deduccionPEN->setAttribute("TipoDeduccion", "007");
+        $deduccionPEN->setAttribute("Clave", "PEN");
+        $deduccionPEN->setAttribute("Concepto", "Pensión alimenticia");
+        $deduccionPEN->setAttribute("Importe", number_format($t['monto_pension_alim'], 2, '.', ''));
+        $deducciones->appendChild($deduccionPEN);
+    }
 
+    $nomina->appendChild($deducciones);
+    }
     // ==========================
     // OTROS PAGOS (SUBSIDIO)
     // ==========================
@@ -348,9 +357,9 @@ foreach ($trabajadores_nomina as $t) {
 
     // Totales a nivel nómina
     $nomina->setAttribute("TotalPercepciones", $t['percepcion_trabajador']);
-    
+    if ($totalDeducciones > 0) {
     $nomina->setAttribute("TotalDeducciones", $t['deducciones']);
-
+    }
     $complemento->appendChild($nomina);
     $comprobante->appendChild($complemento);
     $xml->appendChild($comprobante);
@@ -387,7 +396,7 @@ foreach ($trabajadores_nomina as $t) {
         "certBase64"  => $cert_base64,
         "keyBase64"   => $key_base64,
         "keyPass"     => $password_key,
-        "prueba"      => "true",
+        "prueba"      => "false",
         "opciones"    => ["CALCULAR_SELLO"]
     ];
 

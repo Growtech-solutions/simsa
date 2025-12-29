@@ -11,7 +11,7 @@
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            background-color: #f9f9f9;
+            background-color: white;
         }
         .formulario label {
             display: block;
@@ -21,6 +21,8 @@
             width: 90%;
             padding: 10px;
             margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
         .formulario button {
             padding: 10px 20px;
@@ -37,8 +39,8 @@
 <body>
 
 <div class="formulario">
-    <h2>Registrar Pensión Alimenticia</h2>
-
+    <h2 class="text-2xl font-bold text-blue-600 text-center">Registrar Pensión Alimenticia</h2>
+    <br>
     <form method="POST">
         <!-- Seleccionar trabajador -->
         <label for="trabajador">Seleccionar Trabajador:</label>

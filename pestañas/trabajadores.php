@@ -803,7 +803,22 @@ window.onclick = function(event) {
     <h2>Editar Información de Nómina</h2>
     <form id="formNomina" action="" method="post">
       <label>Nomina: <?php echo $selectDatosExistentes->obtenerOpcionesExistentes('listas', 'contrato', 'contrato', '', $empleado['contrato']); ?></label><br>
-      <label>Contrato: <?php echo $selectDatosExistentes->obtenerOpcionesExistentes('listas', 'tipo_contrato', 'tipo_contrato', '', $empleado['tipo_contrato']); ?></label><br>
+      <label>Tipo de contrato: 
+        <select name="tipo_contrato" id="tipo_contrato" required>
+        <option value="">Tipo de contrato</option>
+        <option value="Tiempo indeterminado" <?php echo ($empleado['contrato'] == 'Tiempo indeterminado') ? 'selected' : ''; ?>>01 - Contrato de trabajo por tiempo indeterminado</option>
+        <option value="Obra determinada" <?php echo ($empleado['contrato'] == 'Obra determinada') ? 'selected' : ''; ?>>02 - Contrato de trabajo para obra determinada</option>
+        <option value="Tiempo determinado" <?php echo ($empleado['contrato'] == 'Tiempo determinado') ? 'selected' : ''; ?>>03 - Contrato de trabajo por tiempo determinado</option>
+        <option value="04" <?php echo ($empleado['contrato'] == '04') ? 'selected' : ''; ?>>04 - Contrato de trabajo por temporada</option>
+        <option value="05" <?php echo ($empleado['contrato'] == '05') ? 'selected' : ''; ?>>05 - Contrato de trabajo sujeto a prueba</option>
+        <option value="06" <?php echo ($empleado['contrato'] == '06') ? 'selected' : ''; ?>>06 - Contrato de trabajo con capacitación inicial</option>
+        <option value="07" <?php echo ($empleado['contrato'] == '07') ? 'selected' : ''; ?>>07 - Modalidad de contratación por pago de hora laborada</option>
+        <option value="08" <?php echo ($empleado['contrato'] == '08') ? 'selected' : ''; ?>>08 - Modalidad de trabajo por comisión laboral</option>
+        <option value="09" <?php echo ($empleado['contrato'] == '09') ? 'selected' : ''; ?>>09 - Modalidades de contratación donde no existe relación de trabajo</option>
+        <option value="10" <?php echo ($empleado['contrato'] == '10') ? 'selected' : ''; ?>>10 - Jubilación, pensión, retiro</option>
+        <option value="99" <?php echo ($empleado['contrato'] == '99') ? 'selected' : ''; ?>>99 - Otro contrato</option>
+        </select>
+      </label><br>
       <label>Salario diario: <input type="text" name="salario" value="<?php echo $empleado['salario']; ?>"></label><br>
       <label>Complemento: <input type="text" name="complemento" value="<?php echo isset($empleado['complemento']) ? $empleado['complemento'] : '0.00'; ?>"></label><br>
       <label>Forma de pago: <?php echo $selectDatosExistentes->obtenerOpcionesExistentes('listas', 'forma_pago', 'forma_pago', '', $empleado['forma_de_pago']); ?></label><br>
