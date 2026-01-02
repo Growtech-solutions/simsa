@@ -36,7 +36,7 @@
 </style>
 <div class=" principal">
     <section>
-    <h2 class="titulo">Alta de pedido</h2>
+    <h2 class="text-2xl font-bold text-blue-600 text-center">Alta de pedido</h2>
     <?php
         // Verifica si los parámetros 'mensajeDatos' y 'mensajeArchivo' están presentes en la URL
         if (isset($_GET['mensajeDatos']) || isset($_GET['mensajeArchivo'])) {

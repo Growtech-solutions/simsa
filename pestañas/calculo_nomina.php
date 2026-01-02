@@ -255,10 +255,11 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     $bono_asistencia = 0;
     $bono_puntualidad = 0;
     $despensa = 0;
+    $despensa = 300*$horas_simples/48;
     if ($horas_simples>= 44 && $faltas_en_semana == 0){
             $bono_asistencia = $base_bono*0.1;
             $bono_puntualidad = $base_bono*0.1;
-            $despensa = 300;
+            
     }
     
     $valor_bonos = $bono_asistencia + $bono_puntualidad + $despensa;

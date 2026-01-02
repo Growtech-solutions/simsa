@@ -13,6 +13,19 @@
 <?php $header_loc= $_GET['header_loc']; ?>
 <div class="principal">
     <section>
+        <div style="grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <form method="GET" action="">
+                <input type="hidden" name="pestaña" value="alta_pedido">
+                <button type="submit" style="padding: 10px 20px;
+                border: none;
+                color: white;
+                background-color: #007bff;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;">+ Agregar Pedido</button>
+            </form>
+        </div>
+        <br>
         <h1 class="text-2xl font-bold text-blue-600">Pedidos</h1>
         <br>
         <div class="buscador">

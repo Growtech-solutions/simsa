@@ -65,15 +65,47 @@ a{
               $neto_timbrados = 0;
             }
 
-          $sql_cont_trab = "SELECT COUNT(*) AS total_trabajadores FROM trabajadores WHERE fecha_ingreso <= '" . $periodo['fecha_fin'] . "' AND contrato = '" . $periodo['tipo'] . "' AND empresa = 'simsa' and estado = 'Activo';";
+          $sql_cont_trab = "SELECT COUNT(*) AS total_trabajadores FROM trabajadores WHERE fecha_ingreso <= '" . $periodo['fecha_fin'] . "' AND contrato = '" . $periodo['tipo'] . "' AND empresa = 'suministros' and estado = 'Activo';";
           $result_cont_trab = $conexion_transimex->query($sql_cont_trab);
           $total_trabajadores = $result_cont_trab ? $result_cont_trab->fetch_assoc()['total_trabajadores'] : 0;
-            // Determinar el estado del periodo
-          $estado = ($total_trabajadores > 0 && $timbrados === $total_trabajadores) ? 'Cerrado' : 'Abierto';
-            // Determinar el color del badge según el estado
-            $badge = ($estado === 'Cerrado') ? 'success' : 'warning';
-            // URL de detalle (ajusta si necesitas pasar el ID)
-            $detalle_url = 'general.php?pestaña=detalle_nomina&periodo_id=' . urlencode($periodo['id']);
+          $sql_transimex = "
+            SELECT COUNT(DISTINCT e.id_trabajador) AS total
+            FROM transimex.encargado e
+            INNER JOIN trabajadores t ON e.id_trabajador = t.id
+            WHERE e.fecha BETWEEN '{$periodo['fecha_inicio']}' AND '{$periodo['fecha_fin']}'
+              AND t.fecha_ingreso <= '{$periodo['fecha_fin']}'
+              AND t.contrato = '{$periodo['tipo']}'
+              AND t.empresa = 'SUMINISTROS'
+              AND t.estado = 'Activo'
+            ";
+
+            $result_sin_horas_transimex = $conexion_transimex->query($sql_transimex);
+            $total_trabajadores_transimex = $result_sin_horas_transimex ? (int)$result_sin_horas_transimex->fetch_assoc()['total'] : 0;
+            $sql_simsa = "
+            SELECT COUNT(DISTINCT e.id_trabajador) AS total
+            FROM simsa.encargado e
+            INNER JOIN transimex.trabajadores t ON e.id_trabajador = t.id
+            WHERE e.fecha BETWEEN '{$periodo['fecha_inicio']}' AND '{$periodo['fecha_fin']}'
+              AND t.fecha_ingreso <= '{$periodo['fecha_fin']}'
+              AND t.contrato = '{$periodo['tipo']}'
+              AND t.empresa = 'SUMINISTROS'
+              AND t.estado = 'Activo'
+            ";
+
+            $result_sin_horas_simsa = $conexion->query($sql_simsa);
+            $total_trabajadores_simsa = $result_sin_horas_simsa ? (int)$result_sin_horas_simsa->fetch_assoc()['total'] : 0;
+            $total_sin_horas = $total_trabajadores - ($total_trabajadores_simsa + $total_trabajadores_transimex);
+          $total_trabajadores -= $total_sin_horas;
+          // Determinar el estado del periodo
+          if ($timbrados >= $total_trabajadores && $total_trabajadores > 0) {
+              $estado = 'Cerrado';
+          } else {
+              $estado = 'Abierto';
+          }
+          // Determinar el color del badge según el estado
+          $badge = ($estado === 'Cerrado') ? 'success' : 'warning';
+          // URL de detalle (ajusta si necesitas pasar el ID)
+          $detalle_url = 'general.php?pestaña=detalle_nomina&periodo_id=' . urlencode($periodo['id']);
     ?>
         <div class="col-md-6 col-lg-4">
           <div class="card shadow-sm border-<?php echo $badge; ?>">
@@ -90,6 +122,9 @@ a{
               <div class="d-flex justify-content-between">
                 <span class="fw-bold">Neto timbrado:</span> <span>$<?php echo number_format($neto_timbrados, 0, '.', ','); ?></span>
               </div>
+              <div class="d-flex justify-content-between">
+                <span class="fw-bold">Trabajadores timbrados:</span> <span><?php echo $timbrados; ?> / <?php echo $total_trabajadores; ?></span>
+                </div>
             </div>
             <div class="card-footer text-end">
               <a href="<?php echo htmlspecialchars($detalle_url); ?>" class="btn btn-sm btn-outline-primary">👁️ Ver detalle</a>
