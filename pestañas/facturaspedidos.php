@@ -87,7 +87,8 @@ $pestaña= $_GET['pestaña'];
         <section class="mensaje">
             <div class="centrado">
                 
-                <h2>Reporte de Pedidos</h2>
+                <h2 class="text-2xl font-bold text-blue-600">Reporte de Pedidos</h2>
+                <br>
                 <form class="reporte_formulario" method="GET" action="">
                     <label for="pedido">Pedido:</label>
                     <input class="formulario_reporte_ot" type="text" id="pedido" name="pedido" placeholder="Buscar por Pedido">

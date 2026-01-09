@@ -264,6 +264,7 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     
     $valor_bonos = $bono_asistencia + $bono_puntualidad + $despensa;
     $valor_premios = $sueldo_hora_base * $total_bonos_asistencias;
+    $valor_premios = 0;
     $total_bonos = $valor_bonos + $valor_premios;
 
     //Infonavit

@@ -1,0 +1,5 @@
+﻿Trabajador: GILBERTO TREVIÑO MARTINEZ
+Error: El empleado tiene doble reporte o percepciones menores o iguales a cero en el periodo. Por favor revisa los registros antes de timbrar.
+XML Enviado:
+
+--------------------------

@@ -77,6 +77,8 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
     $ingreso = $trab['fecha_ingreso'];
     $antiguedad = (new DateTime($ingreso))->diff(new DateTime($fecha_fin))->y;
     $diff = (new DateTime($ingreso))->diff(new DateTime($fecha_fin));
+    $diff_number = $diff->y + ($diff->m / 12) + ($diff->d / 365);
+    $diff_number = round($diff_number, 2);
     $antiguedad_nomina = "P";
     if ($diff->y > 0) {
         $antiguedad_nomina .= $diff->y . "Y";
@@ -206,7 +208,7 @@ while ($trab = $result_trabajadores->fetch_assoc()) {
         }
         $horas_triples = 0;
     }
-
+    $horas_triples = 0;
     $horas_dobles = ceil($horas_dobles);
     /* Prima vacacional */
     $valor_vacaciones = $vacaciones_en_semana * ($sueldo_diario_base);
