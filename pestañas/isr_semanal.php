@@ -77,12 +77,13 @@ switch (true) {
     $isr_excedente = $excedente_limite * $porcentaje_excedente/ 100 ;
     $isr_a_cargo = $isr_excedente + $cuota_fija;
 
+    $as=7-$faltas_en_semana;
     //Limite para subsidio 
     $limite_sub = 11492.66/30.4*7;
 
     // Subsidio
     if ($percepciones_gravadas < $limite_sub) {
-        $subsidio = (($uma * .1502)) * 7;
+        $subsidio = (($uma * .1502)) * $as;
     } else {
         $subsidio = 0;
     }
