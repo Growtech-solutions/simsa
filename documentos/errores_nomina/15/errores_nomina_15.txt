@@ -1,0 +1,30 @@
+﻿Trabajador: ANGELICA KARINA GARCIA CARDONA
+Error: Timbrado fallido: P12Y1M30D|El atributo Nomina.TotalDeducciones, no debe existir.
+XML Enviado:
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante Sello="" Version="4.0" Serie="A" Folio="15" Fecha="2026-01-23T21:47:15" Descuento="0" NoCertificado="3030303031303030303030373132323533323233" Certificado="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" SubTotal="2162.01" Moneda="MXN" Total="2162.01" TipoDeComprobante="N" LugarExpedicion="64103" Exportacion="01" MetodoPago="PUE" xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd">
+  <cfdi:Emisor Rfc="SIM680423P4A" Nombre="SERVICIOS INDUSTRIALES DE MONTERREY" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="GACA890629197" Nombre="ANGELICA KARINA GARCIA CARDONA" UsoCFDI="CN01" DomicilioFiscalReceptor="67182" RegimenFiscalReceptor="605"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="84111505" ObjetoImp="01" ClaveUnidad="ACT" Descuento="0.00" Cantidad="1" Descripcion="Pago de nómina" ValorUnitario="2162.01" Importe="2162.01"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <nomina12:Nomina Version="1.2" TipoNomina="O" FechaPago="2026-01-14" FechaInicialPago="2026-01-09" FechaFinalPago="2026-01-14" NumDiasPagados="6" TotalOtrosPagos="108.70" TotalPercepciones="2053.31" TotalDeducciones="0">
+      <nomina12:Emisor RegistroPatronal="D4534011108"/>
+      <nomina12:Receptor Curp="GACA890629MNLRRN00" NumSeguridadSocial="43088950894" FechaInicioRelLaboral="2013-11-15" Antigüedad="P12Y1M30D" ClaveEntFed="NLE" PeriodicidadPago="02" TipoContrato="01" Sindicalizado="No" TipoJornada="99" TipoRegimen="02" NumEmpleado="2338" Puesto="Recursos Humanos" Departamento="Administracion" SalarioBaseCotApor="415.46" RiesgoPuesto="1" SalarioDiarioIntegrado="415.46"/>
+      <nomina12:Percepciones TotalSueldos="2053.31" TotalGravado="1758.66" TotalExento="294.65">
+        <nomina12:Percepcion TipoPercepcion="050" Clave="BONO" Concepto="Bonos" ImporteGravado="60" ImporteExento="0.00"/>
+        <nomina12:Percepcion TipoPercepcion="001" Clave="001" Concepto="Sueldos, Salarios" ImporteGravado="520.08" ImporteExento="0.00"/>
+        <nomina12:Percepcion TipoPercepcion="001" Clave="VAC" Concepto="Vacaciones" ImporteGravado="1178.58" ImporteExento="0.00"/>
+        <nomina12:Percepcion TipoPercepcion="021" Clave="PVA" Concepto="Prima Vacacional" ImporteGravado="0" ImporteExento="294.65"/>
+      </nomina12:Percepciones>
+      <nomina12:OtrosPagos>
+        <nomina12:OtroPago TipoOtroPago="002" Clave="SUB" Concepto="Subsidio para el empleo" Importe="108.70">
+          <nomina12:SubsidioAlEmpleo SubsidioCausado="108.70"/>
+        </nomina12:OtroPago>
+      </nomina12:OtrosPagos>
+    </nomina12:Nomina>
+  </cfdi:Complemento>
+</cfdi:Comprobante>
+
+--------------------------

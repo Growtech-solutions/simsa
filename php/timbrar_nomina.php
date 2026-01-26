@@ -201,12 +201,15 @@ foreach ($trabajadores_nomina as $t) {
     $percepciones->setAttribute("TotalExento", $t['percepciones_exentas']);
 
     // Sueldo
-    $percepcion = $xml->createElement("nomina12:Percepcion");
-    $percepcion->setAttribute("TipoPercepcion", "001");
-    $percepcion->setAttribute("Clave", "001");
-    $percepcion->setAttribute("Concepto", "Sueldos, Salarios");
-    $percepcion->setAttribute("ImporteGravado", $t['valor_horas_simples']);
-    $percepcion->setAttribute("ImporteExento", "0.00");
+    if (isset($t['valor_horas_simples']) && floatval($t['valor_horas_simples']) > 0) {
+        $percepcion = $xml->createElement("nomina12:Percepcion");
+        $percepcion->setAttribute("TipoPercepcion", "001");
+        $percepcion->setAttribute("Clave", "001");
+        $percepcion->setAttribute("Concepto", "Sueldos, Salarios");
+        $percepcion->setAttribute("ImporteGravado", $t['valor_horas_simples']);
+        $percepcion->setAttribute("ImporteExento", "0.00");
+        $percepciones->appendChild($percepcion);
+    }
     if (isset($t['total_bonos']) && floatval($t['total_bonos']) > 0) {
         // Agregar un nodo Percepcion adicional para bonos
         $percepcionBono = $xml->createElement("nomina12:Percepcion");
@@ -217,7 +220,27 @@ foreach ($trabajadores_nomina as $t) {
         $percepcionBono->setAttribute("ImporteExento", "0.00");
         $percepciones->appendChild($percepcionBono);
     }
-    $percepciones->appendChild($percepcion);
+
+    if (isset($t['valor_vacaciones']) && floatval($t['valor_vacaciones']) > 0) {
+        // Agregar un nodo Percepcion adicional para vacaciones
+        $percepcionVac = $xml->createElement("nomina12:Percepcion");
+        $percepcionVac->setAttribute("TipoPercepcion", "001");
+        $percepcionVac->setAttribute("Clave", "VAC");
+        $percepcionVac->setAttribute("Concepto", "Vacaciones");
+        $percepcionVac->setAttribute("ImporteGravado", $t['valor_vacaciones']-$t['prima_vacacional']);
+        $percepcionVac->setAttribute("ImporteExento", "0.00");
+        $percepciones->appendChild($percepcionVac);
+    }
+    if (isset($t['prima_vacacional']) && floatval($t['prima_vacacional']) > 0) {
+        // Agregar un nodo Percepcion adicional para prima vacacional
+        $percepcionPV = $xml->createElement("nomina12:Percepcion");
+        $percepcionPV->setAttribute("TipoPercepcion", "021");
+        $percepcionPV->setAttribute("Clave", "PVA");
+        $percepcionPV->setAttribute("Concepto", "Prima Vacacional");
+        $percepcionPV->setAttribute("ImporteGravado", $t['prima_vacacional_gravada'] );
+        $percepcionPV->setAttribute("ImporteExento", $t['prima_vacacional_exenta']);
+        $percepciones->appendChild($percepcionPV);
+    }
 
     // Horas extra (dobles)
     if ($t['horas_dobles'] > 0) {

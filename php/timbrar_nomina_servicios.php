@@ -262,6 +262,27 @@ foreach ($trabajadores_nomina as $t) {
         $percepciones->appendChild($percepcionHE3);
     }
 
+    if (isset($t['valor_vacaciones']) && floatval($t['valor_vacaciones']) > 0) {
+        // Agregar un nodo Percepcion adicional para vacaciones
+        $percepcionVac = $xml->createElement("nomina12:Percepcion");
+        $percepcionVac->setAttribute("TipoPercepcion", "001");
+        $percepcionVac->setAttribute("Clave", "VAC");
+        $percepcionVac->setAttribute("Concepto", "Vacaciones");
+        $percepcionVac->setAttribute("ImporteGravado", $t['valor_vacaciones']-$t['prima_vacacional']);
+        $percepcionVac->setAttribute("ImporteExento", "0.00");
+        $percepciones->appendChild($percepcionVac);
+    }
+    if (isset($t['prima_vacacional']) && floatval($t['prima_vacacional']) > 0) {
+        // Agregar un nodo Percepcion adicional para prima vacacional
+        $percepcionPV = $xml->createElement("nomina12:Percepcion");
+        $percepcionPV->setAttribute("TipoPercepcion", "021");
+        $percepcionPV->setAttribute("Clave", "PVA");
+        $percepcionPV->setAttribute("Concepto", "Prima Vacacional");
+        $percepcionPV->setAttribute("ImporteGravado", $t['prima_vacacional_gravada'] );
+        $percepcionPV->setAttribute("ImporteExento", $t['prima_vacacional_exenta']);
+        $percepciones->appendChild($percepcionPV);
+    }
+
     $nomina->appendChild($percepciones);
 
     // ==========================
@@ -350,7 +371,10 @@ foreach ($trabajadores_nomina as $t) {
     // Totales a nivel nómina
     $nomina->setAttribute("TotalPercepciones", $t['percepcion_trabajador']);
     
-    $nomina->setAttribute("TotalDeducciones", $t['deducciones']);
+    if ($totalDeducciones > 0) {
+        $nomina->setAttribute("TotalDeducciones", $t['deducciones']);
+    } 
+    
 
     $complemento->appendChild($nomina);
     $comprobante->appendChild($complemento);
